@@ -29,7 +29,7 @@ Route::get('/register', function () {
 
 Route::namespace('App/Http/Controllers')->group(function() {
     Route::get('/user', 'ProfileController@index');
-    Route::get('/user', 'ProfileController@show');
+    Route::get('/user/${slug}', 'ProfileController@show');
 });
 
 Route::get('/create-url', function () {
