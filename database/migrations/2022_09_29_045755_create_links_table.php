@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('shortened_link');
             $table->string('recipient_link');
             $table->date('expirated_at');
+            $table->boolean('private');
             $table->timestamps();
             $table->softDeletes();
         });

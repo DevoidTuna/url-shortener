@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GetLogin;
+use GuzzleHttp\Psr7\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,11 +16,22 @@ use App\Http\Controllers\GetLogin;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('index');
 });
 
-// Route::get('/login', GetLogin::class);
-// Route::get('/register', GetRegister::class);
-// Route::get('/create-url', GetCreateUrl::class);
-// Route::get('/home', GetHome::class);
-// Route::get('/profile', GetProfile::class);
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::get('/register', function () {
+    return view('register');
+});
+
+Route::namespace('App/Http/Controllers')->group(function() {
+    Route::get('/user', 'ProfileController@index');
+    Route::get('/user', 'ProfileController@show');
+});
+
+Route::get('/create-url', function () {
+    return view('create-url');
+});

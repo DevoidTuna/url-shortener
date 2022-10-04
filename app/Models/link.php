@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class link extends Model
+class Link extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -14,7 +14,8 @@ class link extends Model
     protected $fillable = [
         'user_id',
         'shortened_link',
-        'recipient_link'
+        'recipient_link',
+        'private'
     ];
 
     protected $dates = [
