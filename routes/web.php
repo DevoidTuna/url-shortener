@@ -16,22 +16,22 @@ use GuzzleHttp\Psr7\Request;
 */
 
 Route::get('/', function () {
-    return view('index');
-});
+    return view('layout');
+})->name('page.index');
 
 Route::get('/login', function () {
     return view('login');
-});
+})->name('page.login');
 
 Route::get('/register', function () {
     return view('register');
-});
+})->name('page.register');
 
 Route::namespace('App/Http/Controllers')->group(function() {
-    Route::get('/user', 'ProfileController@index');
-    Route::get('/user/${slug}', 'ProfileController@show');
+    Route::get('/user', 'ProfileController@index')->name('page.user.index');
+    Route::get('/user/${slug}', 'ProfileController@show')->name('page.user.show');
 });
 
 Route::get('/create-url', function () {
     return view('create-url');
-});
+})->name('page.create-url');
