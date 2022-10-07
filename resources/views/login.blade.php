@@ -1,5 +1,5 @@
 @include('layout')
 
 @section('content')
-LOGIN
+<form action=""></form>
 @endsection
