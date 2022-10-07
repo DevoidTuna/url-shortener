@@ -13,7 +13,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('user');
+        $namePage = 'Profile';
+        return view('user', ['namePage' => $namePage]);
     }
 
     /**
@@ -45,7 +46,8 @@ class ProfileController extends Controller
      */
     public function show($slug)
     {
-        return view('user', ['slug' => $slug]);
+        $namePage = 'Profile';
+        return view('user', ['slug' => $slug, 'namePage' => $namePage]);
     }
 
     /**
