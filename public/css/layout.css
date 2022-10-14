@@ -18,7 +18,7 @@ body {
 
     font-family: 'Open Sans', sans-serif;
 
-    min-width: 800px;
+    min-width: 600px;
 }
 header {
     z-index: 100;
@@ -29,7 +29,7 @@ header {
 
     top: 0px;
     width: 100%;
-    min-width: 800px;
+    min-width: 600px;
     height: 120px;
 }
 .header-buttons {
@@ -63,11 +63,8 @@ header div div img {
 }
 #body-content {
     display: block;
-    width: 500px;
+    min-width: 600px;
     min-height: 700px;
-
-    margin-right: auto;
-    margin-left: auto;
 }
 #sidebar {
     z-index: 5;
@@ -112,8 +109,14 @@ li {
     font-weight: bold;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-#content {
-    display: inline-block;
+#content-container {
+    display: block;
+    padding: 100px;
+    min-width: 450px;
+    max-width: 9999px;
+    padding-top: 20px;
+
+    margin: 0px auto;
 }
 footer {
     z-index: 100;

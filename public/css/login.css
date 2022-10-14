@@ -1,0 +1,75 @@
+.container-login h2 {
+    margin-bottom: 40px;
+    font-size: 40px;
+}
+.container-login {
+    width: max-content;
+    margin: 30px auto;
+}
+label {
+    border-left: 2px solid var(--color-orange);
+    padding-left: 2px;
+}
+input {
+    width: 400px;
+    height: 50px;
+    text-indent: 14px;
+    border-radius: 15px;
+    border: 2px solid white;
+    background: none;
+    color: white;
+    font-size: 16px;
+    margin: 5px 0px 20px 0px;
+}
+input:focus {
+    border-color: var(--color-orange);
+}
+#btn-login {
+    display: block;
+    padding: 7px 18px;
+    background-color: var(--color-orange);
+    color: white;
+    font-size: 24px;
+    border-radius: 4px;
+    margin: 35px auto 0px auto;
+}
+#btn-login:hover {
+    cursor: pointer;
+}
+[type="checkbox"] {
+    margin: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 19px;
+    height: 19px;
+    border: 2px solid #999;
+    transition: 0.1s all linear;
+    margin-right: 5px;
+    position: relative;
+    top: 4px;
+}
+[type="checkbox"]:checked {
+    border: 7px solid var(--color-orange);
+}
+#label-remember-me {
+    border: none;
+}
+#sidebar {
+    visibility: hidden;
+}
+.bottom-buttons a {
+    color: var(--color-orange);
+    text-decoration: none;
+    padding: 2px;
+    border-bottom: 2px solid transparent;
+    
+}
+.bottom-buttons a:hover {
+    border-bottom: 2px solid var(--color-orange);
+    border-radius: 2px;
+}
+.bottom-buttons {
+    display: flex;
+    justify-content: space-between;
+}
