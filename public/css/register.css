@@ -51,6 +51,10 @@ label {
 #btn-register:hover {
     cursor: pointer;
 }
+#btn-register:disabled {
+    background-color: rgb(190, 190, 190);
+    color: black;
+}
 .bottom-buttons {
     width: 100%;
     display: inline-block;
