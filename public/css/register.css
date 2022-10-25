@@ -26,12 +26,12 @@ label {
     visibility: hidden;
 }
 .container-register {
-    width: max-content;
+    width: 460px;
     margin: 30px auto;
 }
 .box {
-    margin: 10px 0px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 }
@@ -51,10 +51,6 @@ label {
 #btn-register:hover {
     cursor: pointer;
 }
-#btn-register:disabled {
-    background-color: rgb(190, 190, 190);
-    color: black;
-}
 .bottom-buttons {
     width: 100%;
     display: inline-block;
@@ -70,4 +66,12 @@ label {
 .bottom-buttons a:hover {
     border-bottom: 2px solid var(--color-orange);
     border-radius: 2px;
+}
+span {
+    color: red;
+    width: 100%;
+    text-align: end;
+    padding-right: 10px;
+    font-size: smaller;
+    visibility: hidden;
 }
