@@ -32,8 +32,8 @@ class LoginController extends Controller
             $user->password = bcrypt($request->password);
 
             $user->save();
-
-            return redirect()->intended('user');
+            Auth::login($user);
+            return redirect('user');
         }else {
             return redirect('login');
         }
@@ -53,7 +53,7 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('create-url');
+            return redirect()->intended('login');
         }
  
         return back()->withErrors([
