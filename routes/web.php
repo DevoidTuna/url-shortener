@@ -24,10 +24,6 @@ Route::namespace('App\Http\Controllers')->group(function() {
     Route::get('/user/${slug}', 'ProfileController@show')->name('page.user.show');
 });
 
-Route::get('/create-url', function () {
-    $namePage = 'Create URL';
-    return view('create-url', ['namePage' => $namePage]);
-})->name('page.create-url');
 
 Route::get('/register', [LoginController::class, 'getRegisterPage'])->name('page.register');
 
@@ -35,6 +31,6 @@ Route::post('/register', [LoginController::class, 'doRegister'])->name('do-regis
 
 Route::get('/login', [LoginController::class, 'getLoginPage'])->name('page.login');
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('do-logout');
 
 Route::post('/login', [LoginController::class, 'doLogin'])->name('do-login');

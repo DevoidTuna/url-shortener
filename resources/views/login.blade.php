@@ -3,7 +3,7 @@
 </head>
 @section('content')
 @auth
-    {{route('page.user')}}
+    <h3>You are already logged in.</h3>
 @endauth
 @guest
 <div class="container-login">

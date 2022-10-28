@@ -1,0 +1,120 @@
+.container {
+    box-sizing: border-box;
+
+    background-color: rgba(20, 20, 20, 0.685);
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    left: 0px;
+    display: flex;
+
+    overflow: hidden;
+
+    position: fixed;
+    margin: auto;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 800;
+}
+
+.modal {
+    width: max-content;
+    min-width: 500px;
+    max-height: 80%;
+    padding: 10px 80px;
+    overflow: auto;
+
+    border: 3px solid white;
+    border-radius: 9px;
+
+    background-color: var(--color-gray);
+
+    text-align: center;
+}
+
+.modal h2 {
+    margin-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 0.1px solid rgba(134, 134, 134, 0.74);
+}
+
+.content {
+    margin: 20px;
+}
+
+#modalChangeBtn {
+    padding: 5px 15px;
+    border: 2px solid red;
+    margin: 30px;
+}
+
+#content-container {
+    display: 0px;
+    padding: 0px;
+    padding-top: 0px;
+}
+
+input {
+    display: block;
+    margin: 10px;
+
+    padding: 5px;
+}
+input[type="button"] {
+
+}
+input[type="checkbox"] {
+
+}
+input[type="color"] {
+
+}
+input[type="date"] {
+
+}
+input[type="datetime-local"] {
+
+}
+input[type="email"] {
+
+}
+input[type="file"] {
+
+}
+input[type="hidden"] {
+
+}
+input[type="image"] {
+
+}
+input[type="number"] {
+
+}
+input[type="password"] {
+
+}
+input[type="radio"] {
+
+}
+input[type="range"] {
+
+}
+input[type="search"] {
+
+}
+input[type="text"] {
+
+}
+input[type="time"] {
+
+}
+input[type="url"] {
+
+}
+input[type="week"] {
+
+}

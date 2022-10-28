@@ -18,7 +18,7 @@
                 @auth
                     <h2 class="header-greetings">Hi, {{ strtok(ucfirst(Auth::user()->name), ' '); }}!</h2>
                     <a href="{{ route('page.user.index'); }}">Profile</a> | 
-                    <a href="{{ route('logout'); }}">Logout</a>
+                    <a href="{{ route('do-logout'); }}">Logout</a>
                 @endauth
 
                 @guest
@@ -31,18 +31,13 @@
     </header>
 
     <div id="body-content">
-        <div id="sidebar">
+        <div id="sidebar" style="display: none">
             <h3 id="titlePage">{{ $namePage; }}</h3>
             <div class="sidebar-links">
                 @auth
                     <ul>
                         <li>
                             <a href="{{ route('page.user.index'); }}">My URL's</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <a href="{{ route('page.create-url'); }}">Create new URL</a>
                         </li>
                     </ul>
                 @endauth
@@ -56,11 +51,6 @@
                     <ul>
                         <li>
                             <a href="{{ route('page.register'); }}">Register</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <a href="{{ route('page.create-url'); }}">Create new URL</a>
                         </li>
                     </ul>
                 @endguest
