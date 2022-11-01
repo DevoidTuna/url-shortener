@@ -27,6 +27,8 @@
     max-height: 80%;
     padding: 10px 80px;
     overflow: auto;
+    min-width: 500px;
+    width: 60%;
 
     border: 3px solid white;
     border-radius: 9px;
@@ -48,7 +50,6 @@
 
 #modalChangeBtn {
     padding: 5px 15px;
-    border: 2px solid red;
     margin: 30px;
 }
 
@@ -64,57 +65,69 @@ input {
 
     padding: 5px;
 }
-input[type="button"] {
-
+input[type="button"], button {
+    padding: 5px 9px;
+    background-color: var(--color-orange);
+    border-radius: 3px;
+    font-size: large;
+    font-weight: 400;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 1px 1px 12px black;
 }
-input[type="checkbox"] {
-
+input[type="button"]:hover, button:hover {
+    color: white;
 }
-input[type="color"] {
-
+input[type="button"]:active, button:active {
+    background-color: black;
 }
-input[type="date"] {
-
-}
-input[type="datetime-local"] {
-
-}
-input[type="email"] {
-
-}
-input[type="file"] {
-
-}
-input[type="hidden"] {
-
-}
-input[type="image"] {
-
-}
-input[type="number"] {
-
-}
-input[type="password"] {
-
+/* Check this item "checkbox:checked" later */
+input[type="checkbox"], input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    max-width: 19px;
+    min-width: 19px;
+    max-height: 19px;
+    min-height: 19px;
+    border: 2px solid #999;
+    transition: 0.1s all linear;
+    position: relative;
 }
 input[type="radio"] {
-
+    border-radius: 100% !important;
+}
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+    border: 7px solid var(--color-orange);
+}
+input[type="color"] {
+    padding: 0px;
+    width: 40px;
+    height: 27px;
+}
+input[type="date"], input[type="datetime-local"], input[type="time"]  {
+    font-size: large;
+    font-weight: 900;
+    background-color: var(--color-black);
+    border: 2px solid var(--color-orange);
+    color: white;
+}
+input[type="email"], input[type="text"], input[type="password"],
+input[type="text"], input[type="number"], input[type="search"],
+input[type="url"], input[type="week"] {
+    
+    background-color: var(--color-black);
+    border: 2px solid var(--color-orange);
+    font-size: 17px;
+    color: white;
+}
+input:-webkit-autofill {
+    -webkit-text-fill-color: white !important;
+    -webkit-box-shadow: 0 0 0 30px var(--color-black) inset;
+}
+input[type="number"] {
+    width: 150px;
 }
 input[type="range"] {
-
-}
-input[type="search"] {
-
-}
-input[type="text"] {
-
-}
-input[type="time"] {
-
-}
-input[type="url"] {
-
-}
-input[type="week"] {
-
+    width: 270px;
 }

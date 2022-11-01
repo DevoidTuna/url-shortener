@@ -12,12 +12,10 @@ class Modal extends Component
      * @return void
      */
 
-    public string $buttonName;
     public string $pageName;
 
-    public function __construct($buttonName = 'BUTTON', $pageName = 'OPTIONS')
+    public function __construct($pageName = 'OPTIONS')
     {
-        $this->buttonName = $buttonName;
         $this->pageName = $pageName;
     }
 
