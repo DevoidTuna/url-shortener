@@ -20,6 +20,7 @@ Route::get('/', function () {
 })->name('page.index');
 
 Route::namespace('App\Http\Controllers')->group(function() {
+    
     Route::get('/user', 'ProfileController@index')->name('page.user.index');
     Route::get('/user/${slug}', 'ProfileController@show')->name('page.user.show');
 });

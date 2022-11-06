@@ -73,3 +73,12 @@ input:focus {
     display: flex;
     justify-content: space-between;
 }
+.errorMessage {
+    color: rgb(255, 89, 89);
+    background-color: rgba(104, 0, 0, 0.76);
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid red;
+    border-radius: 5px;
+}

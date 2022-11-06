@@ -1,5 +1,6 @@
+<!DOCTYPE html>
 <head>
-    <link rel="stylesheet" href="{{ URL::asset('css/login.css'); }}">
+    @vite('resources/css/login.css')
 </head>
 @section('content')
 @auth
@@ -14,6 +15,9 @@
         <input type="email" name="email" id="user-email" required><br>
         <label for="user-password">Password</label><br>
         <input type="password" name="password" id="user-password" required><br>
+        @if(isset($notRegistered))
+            <span class="errorMessage">Invalid email or password.</span>
+        @endif
         <div class="bottom-buttons">
             <div class="button-remember-me">
                 <input type="checkbox" name="rememberMe" id="checkbox-remember-me">

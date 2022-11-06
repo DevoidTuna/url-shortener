@@ -1,7 +1,7 @@
 .container {
     box-sizing: border-box;
 
-    background-color: rgba(20, 20, 20, 0.685);
+    background-color: rgba(0, 0, 0, 0.685);
 
     flex-direction: column;
     align-items: center;
@@ -23,12 +23,10 @@
 
 .modal {
     width: max-content;
-    min-width: 500px;
     max-height: 80%;
     padding: 10px 80px;
     overflow: auto;
     min-width: 500px;
-    width: 60%;
 
     border: 3px solid white;
     border-radius: 9px;
@@ -42,6 +40,7 @@
     margin-top: 5px;
     padding-bottom: 10px;
     border-bottom: 0.1px solid rgba(134, 134, 134, 0.74);
+    text-transform: uppercase;
 }
 
 .content {

@@ -13,7 +13,8 @@ class ProfileController extends Controller
     public function index()
     {
         $namePage = 'Profile';
-        return view('user', ['namePage' => $namePage]);
+        $idModal = 'idModal';
+        return view('user', ['namePage' => $namePage, 'idModal' => $idModal]);
     }
 
     /**

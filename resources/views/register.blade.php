@@ -1,7 +1,7 @@
 @section('content')
 <!DOCTYPE html>
 <head>
-    <link rel="stylesheet" href="{{ URL::asset('css/register.css'); }}">
+    @vite(['resources/css/register.css', 'resources/js/register.js'])
 </head>
 @auth
 {{route('page.user')}}
@@ -41,6 +41,5 @@
     </form>
 </div>
 @endguest
-<script src="{{ URL::asset('js/register.js'); }}"></script>
 @endsection
 @include('layout')

@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dev.ly - URL Shortener</title>
-    <link rel="stylesheet" href="{{ URL::asset('css/layout.css'); }}" >
+    @vite('resources/css/layout.css')
 </head>
 <body>
     <header>
         <div class="header-buttons">
             <div id="img-logo">
-                <a href="{{ route('page.index'); }}"><img src=" {{ URL::asset('/midia/logo-white.png'); }} " alt="logotipo Dev.ly"></a>
+                <a href="{{ route('page.index'); }}"><img src=" {{ Vite::asset('public/midia/logo-white.png'); }} " alt="logotipo Dev.ly"></a>
             </div>
 
             <div id="header-user">

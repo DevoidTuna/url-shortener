@@ -1,0 +1,51 @@
+.field label {
+    margin: 0px 10px;
+    font-weight: 600;
+    font-size: 11pt;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.field input {
+    margin: 0px 10px 15px;
+}
+
+.field label, .field input {
+    display: block;
+}
+
+input[type="radio"] {
+    display: inline-block;
+    text-align: left;
+    margin: 0px 5px 0px 10px;
+}
+.radio label {
+    display: inline-block;
+    text-align: left;
+}
+.radio {
+    text-align: left;
+    margin-bottom: 20px;
+}
+.radio div {
+    display: flex;
+    align-content: center;
+    margin: 5px 0px 10px 0px;
+}
+.radio div label {
+    margin: 0px 9px 0px 0px;
+}
+.radio div input {
+    margin-top: 1px;
+}
+.radio div input:checked {
+    border: 2px solid white;
+    background-color: var(--color-orange);
+}
+* {
+    /* border: 01px solid red; */
+}
+.title {
+    display: block;
+    width: 95%;
+}

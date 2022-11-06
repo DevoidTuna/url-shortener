@@ -1,7 +1,7 @@
 <head>
-    <link rel="stylesheet" href="{{ URL::asset('css/modal.css'); }}">
+    @vite(['resources/css/modal.css', 'resources/js/modal.js'])
 </head>
-<div class="container">
+<div class="container" id="{{$idModal}}">
     <div class="modal">
         <h2>{{ $pageName; }}</h2>
         <div class="content">
@@ -9,4 +9,3 @@
         </div>
     </div> 
 </div>
-<script src="{{ URL::asset('js/modal.js'); }}"></script>

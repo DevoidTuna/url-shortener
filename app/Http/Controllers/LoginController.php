@@ -35,7 +35,7 @@ class LoginController extends Controller
             Auth::login($user);
             return redirect('user');
         }else {
-            return redirect('login');
+            return redirect('register');
         }
     }
 
@@ -53,12 +53,13 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('login');
+            return redirect()->intended('user');
         }
- 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        $notRegistered = 1;
+        $namePage = 'Login';
+        return view('login',
+        ['namePage' => $namePage,
+        'notRegistered' => $notRegistered ]);
     }
 
     /**

@@ -13,10 +13,12 @@ class Modal extends Component
      */
 
     public string $pageName;
+    public string $idModal;
 
-    public function __construct($pageName = 'OPTIONS')
+    public function __construct($pageName = 'OPTIONS', $idModal = 'idModal')
     {
         $this->pageName = $pageName;
+        $this->idModal = $idModal;
     }
 
     /**
