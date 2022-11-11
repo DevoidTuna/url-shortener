@@ -45,17 +45,22 @@ input[type="radio"] {
 .title {
     display: block;
     width: 100%;
+    border-left: 2px solid white;
+    padding-left: 3px;
 }
-#destinationUrl{
+#destinationUrl, #nameUrl{
     width: 100%;
 }
 .generate-button button {
     padding: 15px;
+    margin-bottom: 30px;
 }
-.shortenedUrl {
+.field-shortenedUrl {
     margin-top: 30px;
+    width: 450px;
+    display: none;
 }
-.shortenedUrl input {
+.field-shortenedUrl input {
     width: 86%;
 }
 .displayFlex {

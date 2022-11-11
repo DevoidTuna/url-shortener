@@ -11,6 +11,9 @@
     --color-gray: rgb(32, 32, 32);
     --color-black: rgb(22, 22, 22);
 }
+a {
+    color: var(--color-orange);
+}
 body {
     background-color: var(--color-gray);
 

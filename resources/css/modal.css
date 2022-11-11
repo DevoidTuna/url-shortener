@@ -80,6 +80,7 @@ input[type="button"]:hover, button:hover {
 }
 input[type="button"]:active, button:active {
     background-color: black;
+    color: white;
 }
 /* Check this item "checkbox:checked" later */
 input[type="checkbox"], input[type="radio"] {

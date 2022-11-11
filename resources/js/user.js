@@ -1,47 +1,104 @@
 import switchModal from "./modal";
 
-// Button to open modal
-
-const buttonModal = document.querySelector('#buttonModal')
-const containerModal = document.querySelector('#idModal')
-
-buttonModal.addEventListener('click', function() {
-    switchModal(containerModal)
-})
-
-// Copy button
-const copyButton = document.querySelector('#copyButton')
-const shortenedUrl = document.querySelector('#shortenedUrl')
-
-copyButton.addEventListener('click', function() {
-    if(shortenedUrl.value.length > 0) {
-        let copyText = document.querySelector("#shortenedUrl")
-
-        copyText.select();
-        copyText.setSelectionRange(0, 99999)
-
-        navigator.clipboard.writeText(copyText.value)
-
-        copyButton.innerHTML = 'copied!'
-        copyButton.style.backgroundColor = 'white'
-        copyButton.style.color = 'black'
-    }
-})
-
-// additional functions
-const destinationUrl = document.querySelector('#destinationUrl')
-const generateUrlButton = document.querySelector('#generateUrlButton')
-
-const check = () => {
-    console.log('abcd')
-    if(destinationUrl.value.length > 0) {
-        generateUrlButton.removeAttribute('disabled')
-    }
+/* 
+|   Set var, let and const
+*/
+const button = {
+    modal: document.querySelector('#buttonModal'),
+    close: document.querySelectorAll('.closeButton'),
+    copy: document.querySelector('#copyButton'),
+    generateUrl: document.querySelector('#generateUrlButton'),
 }
-// function enableOrDisableButton(button) {
-//     if(button.hasAttribute('disabled')) {
-//         button.removeAttribute('disabled')
-//     } else {
-//         button.setAttribute('disabled')
-//     }
-// }
+const field = {
+    generateUrl: document.querySelector('#generateUrl'),
+    shortenedUrl: document.querySelector('.field-shortenedUrl'),
+}
+const container = {
+    modal: document.querySelector('#idModal'),
+}
+const input = {
+    destinationUrl: document.querySelector('#destinationUrl'),
+    shortenedUrl: document.querySelector('#shortenedUrl'),
+}
+
+/* 
+|   Button to open modal
+*/
+button.modal.addEventListener('click', function () {
+    switchModal(container.modal)
+    if(container.modal.style.display == 'flex') {
+        field.generateUrl.style.display = 'block'
+        field.shortenedUrl.style.display = 'none'
+    }
+
+})
+
+button.close.forEach(button => button.addEventListener('click', function () {
+    switchModal(container.modal)
+    if(container.modal.style.display == 'flex') {
+        field.generateUrl.style.display = 'block'
+        field.shortenedUrl.style.display = 'none'
+    }
+}))
+
+
+/* 
+|   Clear the inputs to new URL
+*/
+function resetModal() {
+
+}
+
+
+/* 
+|   Copy button
+*/
+button.copy.addEventListener('click', function () {
+
+    input.shortenedUrl.select();
+    input.shortenedUrl.setSelectionRange(0, 99999)
+
+    navigator.clipboard.writeText(input.shortenedUrl.value)
+
+    button.copy.innerHTML = 'copied!'
+    button.copy.style.backgroundColor = 'white'
+    button.copy.style.color = 'black'
+})
+
+
+/* 
+|   Enable/disable button Generate URL
+*/
+input.destinationUrl.addEventListener('input', function () {
+    if (input.destinationUrl.value.length > 0) {
+        button.generateUrl.removeAttribute('disabled')
+    } else {
+        button.generateUrl.setAttribute('disabled', 1)
+    }
+})
+
+
+/* 
+|   button.generateUrl hides the creation screen and returns the 
+|   field-shortenedUrl
+*/
+button.generateUrl.addEventListener('click', function () {
+    field.generateUrl.style.display = 'none'
+    field.shortenedUrl.style.display = 'block'
+})
+
+
+/* 
+|   Validade URL
+|   checking later this function to insert in program
+*/
+function isValidUrl (urlString) {
+    var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
+    '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
+    return !!urlPattern.test(urlString);
+}
+
