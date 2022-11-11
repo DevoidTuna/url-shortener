@@ -42,10 +42,31 @@ input[type="radio"] {
     border: 2px solid white;
     background-color: var(--color-orange);
 }
-* {
-    /* border: 01px solid red; */
-}
 .title {
     display: block;
-    width: 95%;
+    width: 100%;
+}
+#destinationUrl{
+    width: 100%;
+}
+.generate-button button {
+    padding: 15px;
+}
+.shortenedUrl {
+    margin-top: 30px;
+}
+.shortenedUrl input {
+    width: 86%;
+}
+.displayFlex {
+    display: flex;
+}
+#copyButton {
+    height: 34px;
+    width: 92px;
+}
+button:disabled, button:disabled:hover, button:disabled:active {
+    background-color: rgba(204, 65, 0, 0.521);
+    color: black;
+    cursor: not-allowed;
 }

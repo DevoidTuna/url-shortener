@@ -8,7 +8,7 @@
         <form method="POST" action="">
             <div class="field">
                 <label for="destinationUrl">URL</label>
-                <input type="url" id="destinationUrl" name="destinationUrl">
+                <input type="url" id="destinationUrl" name="destinationUrl" oninput="check()" required>
             </div>
             <div class="field radio">
                 <label class="title">Avaliable time</label>
@@ -24,26 +24,23 @@
                 </div>
             </div>
             <div class="field radio">
-                <label class="title">Visibility</label>
+                <label class="title">Visibility (in your profile)</label>
                 <div>
                     <input type="radio" id="visibility-public" name="visibility" checked>
                     <label for="visibility-public">public</label>
                     <input type="radio" id="visibility-private" name="visibility">
                     <label for="visibility-private">private</label>
                 </div>
-                
             </div>
-            <div class="field">
-                <label for="XXXXXX">label do input: </label>
-                <input type="text" id="XXXXXX" name="XXXXXX">
+            <div class="field generate-button">
+                <button type="submit" id="generateUrlButton" disabled>generate shortened url</button>
             </div>
-            <div class="field">
-                <label for="XXXXXX">label do input: </label>
-                <input type="text" id="XXXXXX" name="XXXXXX">
-            </div>
-            <div class="field">
-                <label for="XXXXXX">label do input: </label>
-                <input type="text" id="XXXXXX" name="XXXXXX">
+            <div class="field shortenedUrl">
+                <label for="shortenedUrl" class="title">shortened URL</label>
+                <div class="displayFlex">
+                    <input type="text" name="shortenedUrl" id="shortenedUrl" readonly>
+                    <button id="copyButton" disabled>copy</button>
+                </div>
             </div>
         </form>
     </x-slot:inputs>

@@ -76,6 +76,7 @@ input[type="button"], button {
 }
 input[type="button"]:hover, button:hover {
     color: white;
+    cursor: pointer;
 }
 input[type="button"]:active, button:active {
     background-color: black;
