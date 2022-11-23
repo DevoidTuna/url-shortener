@@ -19,6 +19,9 @@ const container = {
 const input = {
     destinationUrl: document.querySelector('#destinationUrl'),
     shortenedUrl: document.querySelector('#shortenedUrl'),
+    nameUrl: document.querySelector('#nameUrl'),
+    radioVisibilityPublic: document.querySelector('#visibility-public'),
+    radioAvaliableTime_NoExpiration: document.querySelector('#avaliableTime-noExpiration'),
 }
 
 /* 
@@ -30,6 +33,7 @@ button.modal.addEventListener('click', function () {
         field.generateUrl.style.display = 'block'
         field.shortenedUrl.style.display = 'none'
     }
+    resetInputsCreateUrl()
 
 })
 
@@ -39,6 +43,7 @@ button.close.forEach(button => button.addEventListener('click', function () {
         field.generateUrl.style.display = 'block'
         field.shortenedUrl.style.display = 'none'
     }
+    resetInputsCreateUrl()
 }))
 
 
@@ -86,6 +91,18 @@ button.generateUrl.addEventListener('click', function () {
     field.generateUrl.style.display = 'none'
     field.shortenedUrl.style.display = 'block'
 })
+
+
+/* 
+|   Function to reset the inputs of creation URL
+*/
+function resetInputsCreateUrl() {
+    input.radioVisibilityPublic.checked = 'true'
+    input.radioAvaliableTime_NoExpiration.checked = 'true'
+    input.nameUrl.value = ''
+    input.destinationUrl.value = ''
+    button.generateUrl.setAttribute('disabled', 1)
+}
 
 
 /* 

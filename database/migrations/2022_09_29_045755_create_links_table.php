@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('links', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->string('name_link');
             $table->string('shortened_link');
             $table->string('recipient_link');
-            $table->date('expirated_at');
-            $table->boolean('private');
+            $table->dateTime('expired_at');
+            $table->string('public');
+            $table->string('deleted');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
