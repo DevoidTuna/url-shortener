@@ -1,73 +1,41 @@
 import switchModal from "./modal";
 
 /* 
-|   Set var, let and const
+|   Set var and const
 */
 const button = {
     modal: document.querySelector('#buttonModal'),
-    close: document.querySelectorAll('.closeButton'),
-    copy: document.querySelector('#copyButton'),
+    close: document.querySelector('.closeButton'),
+    copy: document.querySelectorAll('.button-copyUrl'),
     generateUrl: document.querySelector('#generateUrlButton'),
-}
-const field = {
-    generateUrl: document.querySelector('#generateUrl'),
-    shortenedUrl: document.querySelector('.field-shortenedUrl'),
 }
 const container = {
     modal: document.querySelector('#idModal'),
 }
 const input = {
     destinationUrl: document.querySelector('#destinationUrl'),
-    shortenedUrl: document.querySelector('#shortenedUrl'),
     nameUrl: document.querySelector('#nameUrl'),
     radioVisibilityPublic: document.querySelector('#visibility-public'),
     radioAvaliableTime_NoExpiration: document.querySelector('#avaliableTime-noExpiration'),
 }
+
+// const field = {
+//     shortenedUrl: document.querySelectorAll('.field-shortened-url'),
+// }
+
 
 /* 
 |   Button to open modal
 */
 button.modal.addEventListener('click', function () {
     switchModal(container.modal)
-    if(container.modal.style.display == 'flex') {
-        field.generateUrl.style.display = 'block'
-        field.shortenedUrl.style.display = 'none'
-    }
     resetInputsCreateUrl()
 
 })
 
-button.close.forEach(button => button.addEventListener('click', function () {
+button.close.addEventListener('click', function () {
     switchModal(container.modal)
-    if(container.modal.style.display == 'flex') {
-        field.generateUrl.style.display = 'block'
-        field.shortenedUrl.style.display = 'none'
-    }
     resetInputsCreateUrl()
-}))
-
-
-/* 
-|   Clear the inputs to new URL
-*/
-function resetModal() {
-
-}
-
-
-/* 
-|   Copy button
-*/
-button.copy.addEventListener('click', function () {
-
-    input.shortenedUrl.select();
-    input.shortenedUrl.setSelectionRange(0, 99999)
-
-    navigator.clipboard.writeText(input.shortenedUrl.value)
-
-    button.copy.innerHTML = 'copied!'
-    button.copy.style.backgroundColor = 'white'
-    button.copy.style.color = 'black'
 })
 
 
@@ -80,16 +48,6 @@ input.destinationUrl.addEventListener('input', function () {
     } else {
         button.generateUrl.setAttribute('disabled', 1)
     }
-})
-
-
-/* 
-|   button.generateUrl hides the creation screen and returns the 
-|   field-shortenedUrl
-*/
-button.generateUrl.addEventListener('click', function () {
-    field.generateUrl.style.display = 'none'
-    field.shortenedUrl.style.display = 'block'
 })
 
 
@@ -110,8 +68,7 @@ function resetInputsCreateUrl() {
 |   checking later this function to insert in program
 */
 function isValidUrl (urlString) {
-    var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
+    var urlPattern = new RegExp('((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
     '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
@@ -119,3 +76,36 @@ function isValidUrl (urlString) {
     return !!urlPattern.test(urlString);
 }
 
+
+/* 
+|   Function to copy button work
+*/
+
+var field = document.querySelectorAll('div.field-shortened-url > button')
+
+for (let i = 0; i < field.length; i++) {
+    let url = document.querySelectorAll('.goToUrl')
+
+    button.copy[i].addEventListener('click', function() {
+        navigator.clipboard.writeText(url[i].getAttribute('href')).then(
+            () => {
+                field[i].style.backgroundColor = 'white'
+                window.setTimeout(function(){ field[i].style.backgroundColor = '#ff5100' }, 1000)
+            })})
+}
+
+function copyText() {
+    // Get the text field
+    // var copyText = document.getElementById("myInput");
+
+    // // Select the text field
+    // copyText.select();
+    // copyText.setSelectionRange(0, 99999); // For mobile devices
+
+    // // Copy the text inside the text field
+    // navigator.clipboard.writeText(copyText.value);
+
+    // // Alert the copied text
+    // alert("Copied the text: " + copyText.value);
+    window.alert('copiado!')
+} 

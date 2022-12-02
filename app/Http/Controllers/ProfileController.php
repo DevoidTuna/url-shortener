@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Link;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -14,7 +17,21 @@ class ProfileController extends Controller
     {
         $namePage = 'Profile';
         $idModal = 'idModal';
-        return view('user', ['namePage' => $namePage, 'idModal' => $idModal]);
+        $urls = Link::where('user_id', '=', auth()->id())
+                    ->where('expired_at', '>=', Carbon::now())
+                    ->orWhere('expired_at', '=', null)
+                    ->where('deleted_at', '=', null)
+                    ->orderBy('id', 'desc')
+                    ->get();
+
+        $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
+        $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
+        return view('user', [
+            'namePage' => $namePage,
+            'idModal' => $idModal,
+            'urls' => $urls,
+            'site' => $site
+        ]);
     }
 
     /**
@@ -44,10 +61,10 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($user)
     {
-        $namePage = 'Profile';
-        return view('user', ['slug' => $slug, 'namePage' => $namePage]);
+        $namePage = 'User';
+        return view('user', ['user' => $user, 'namePage' => $namePage]);
     }
 
     /**

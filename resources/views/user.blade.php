@@ -47,27 +47,42 @@
                         </div>
                     </div>
                     <div class="field generate-button">
-                        <button id="generateUrlButton" disabled>generate shortened url</button>
+                        <button id="generateUrlButton" disabled>shorten url</button>
                     </div>
                 </div>
             </form>
-            <div class="field field-shortenedUrl">
-                <label for="shortenedUrl" class="title">shortened URL</label>
-                <div class="displayFlex">
-                    <input type="text" name="shortenedUrl" id="shortenedUrl" >
-                    <button id="copyButton">copy</button>
-                </div>
-            </div>
             <button class="closeButton">close</button>
         </x-slot:inputs>
     </x-modal>
-
-    <div class="box boxCreateUrl">
-         
+    <h2>My URLs</h2>
+    @foreach ($urls as $urls)
+    <div class="field-shortened-url">
+        <button class="button-copyUrl"><img src="{{ Vite::asset('public/midia/copy.png'); }}" alt=""></button>
+        <div class="box box-shortened-url">
+            <div class="field-box field-goUrl">
+                @if (!$urls->public)
+                <img src="{{ Vite::asset('public/midia/padlock.png'); }}" alt="private link" class="img-padlock icon">
+                @endif
+                <img src="{{ Vite::asset('public/midia/external-link.png'); }}" alt="Go to link" class="img-external-link icon">
+                <h3>
+                    @if ($urls->name_link == null)
+                    <a href="{{ $urls->recipient_link }}" target="_blank" class="goToUrl">{{ $urls->recipient_link }}</a>
+                    @else
+                    <a href="{{ $urls->recipient_link }}" target="_blank" class="goToUrl">{{ ucwords($urls->name_link) }}</a>
+                    @endif
+                </h3>
+            </div>
+            <div class="field-box">
+                <span class="divisor">|</span>
+                <form method="POST" action="{{route('delete-url')}}" class="field-shortened-url">
+                    @csrf
+                    <button type="submit" name="link_id" value="{{$urls->id}}" class="button-deleteUrl"><img src="{{ Vite::asset('public/midia/delete.png'); }}" alt="Delete URL"class="img-delete icon"></button>    
+                </form>
+            </div>
+        </div>
     </div>
+    @endforeach
 </div>
-
-
 @endauth
 @endsection
 @include('layout')

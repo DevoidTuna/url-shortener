@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::namespace('App\Http\Controllers')->group(function () {
 
     Route::get('/user', 'ProfileController@index')->name('page.user.index');
-    Route::get('/user/${slug}', 'ProfileController@show')->name('page.user.show');
+    Route::get('/user/${user}', 'ProfileController@show')->name('page.user.show');
 });
 
 
@@ -38,3 +38,5 @@ Route::get('/login', [UserController::class, 'getLoginPage'])->name('page.login'
 Route::get('/logout', [UserController::class, 'logout'])->name('do-logout');
 
 Route::post('/login', [UserController::class, 'doLogin'])->name('do-login');
+
+Route::post('/user/deleteUrl', [LinkController::class, 'deleteUrl'])->name('delete-url');

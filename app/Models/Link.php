@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class Link extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'name_link',
@@ -19,9 +18,8 @@ class Link extends Model
         'recipient_link',
         'expired_at',
         'public',
-        'deleted'
+        'deleted_at'
     ];
-
 
     public function link()
     {   

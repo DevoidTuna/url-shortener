@@ -56,14 +56,7 @@ input[type="radio"] {
     padding: 15px;
     margin-bottom: 30px;
 }
-.field-shortenedUrl {
-    margin-top: 30px;
-    width: 450px;
-    display: none;
-}
-.field-shortenedUrl input {
-    width: 86%;
-}
+
 .displayFlex {
     display: flex;
 }
@@ -83,6 +76,9 @@ button:disabled:active {
 
 .bodyContainer {
     margin: 20px 17%;
+    max-width: 1000px;
+    align-items: center;
+    display: block;
 }
 
 .box {
@@ -93,18 +89,105 @@ button:disabled:active {
     display: flex;
 }
 
-.boxCreateUrl {
-    background-color: var(--color-orange);
+.field-shortened-url {
+    display: flex;
+    align-items: center;
+}
+
+.box-shortened-url {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    color: black;
+    padding:5px 20px 5px 5px;
+    width: 70%;
+    min-width: 400px;
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.field-box {
+    display: inline-flex;
+}
+
+.field-goUrl {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.button-copyUrl {
+    display: inline-block;
+}
+
+.divisor {
+    margin: 0px 5px;
+    color: rgb(182, 182, 182);
+    font-size: 23px;
+}
+
+.goToUrl {
+    text-decoration: none;
+    
+}
+
+.goToUrl:hover {
+    border-bottom: 2px solid var(--color-orange);
 }
 
 #buttonModal {
     box-shadow: none;
     margin: 0px;
+    margin-bottom: 35px;
     width: 100%;
     height: 55px;
     border-radius: 30px;
     box-shadow: 0px 0px 9px black;
     font-size: 30px;
     font-weight: 500;
-    color: rgb(34, 34, 34);
+    color: rgb(255, 255, 255);
+}
+
+.button-editUrl {
+    margin: 0px 5px;
+    background-color: rgb(41, 41, 255);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none;
+}
+
+.button-editUrl:hover {
+    background-color: rgb(30, 30, 214);
+}
+
+.button-deleteUrl {
+    color: white;
+    background-color: rgb(240, 26, 26);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none;
+}
+
+.button-deleteUrl:hover {
+    background-color: rgb(182, 32, 32);
+}
+
+.button-copyUrl {
+    height: 40px;
+    width: 50px;
+    border-radius: 50px;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    margin: 0px 3px;
+}
+
+.img-external-link {
+    margin-top: 3px;
 }
