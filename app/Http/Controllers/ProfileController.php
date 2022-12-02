@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Link;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -17,42 +18,37 @@ class ProfileController extends Controller
     {
         $namePage = 'Profile';
         $idModal = 'idModal';
+        $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
+        $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
+        
         $urls = Link::where('user_id', '=', auth()->id())
-                    ->where('expired_at', '>=', Carbon::now())
-                    ->orWhere('expired_at', '=', null)
+                    ->where(
+                        function ($query) {
+                            $query->where('expired_at', '>=', Carbon::now())
+                                  ->orWhere('expired_at', '=', null);
+                        }
+                    )
                     ->where('deleted_at', '=', null)
                     ->orderBy('id', 'desc')
                     ->get();
 
-        $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
-        $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
-        return view('user', [
-            'namePage' => $namePage,
-            'idModal' => $idModal,
-            'urls' => $urls,
-            'site' => $site
+        // $urls = Link::where('user_id', '=', auth()->id())
+        //             ->where('expired_at', '>=', Carbon::now())
+        //             ->where('deleted_at', '=', null)
+
+        //             ->orWhere('user_id', '=', auth()->id())
+        //             ->where('expired_at', '=', null)
+        //             ->where('deleted_at', '=', null)
+
+        //             ->orderBy('id', 'desc')
+        //             ->get();
+                    
+        
+        return view('user', ['namePage' => $namePage,
+                            'idModal' => $idModal,
+                            'urls' => $urls,
+                            'site' => $site
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -61,10 +57,43 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($user)
+    public function show($users)
     {
         $namePage = 'User';
-        return view('user', ['user' => $user, 'namePage' => $namePage]);
+        $idModal = 'idModal';
+        $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
+        $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
+
+        $userName = User::where('id', '=', $users)->get('name');
+
+        $userUrls = Link::where('user_id', '=', $users)
+                        ->where(function ($query) {
+                                $query->where('expired_at', '>=', Carbon::now())
+                                      ->orWhere('expired_at', '=', null);
+                                })
+                        ->where('deleted_at', '=', null)
+                        ->where('public', '=', 1)
+                        ->orderBy('id', 'desc')
+                        ->get();
+
+        // $userUrls = Link::where('user_id', '=', $users)
+        //                 ->where('expired_at', '>=', Carbon::now())
+        //                 ->where('public', '=', 1)
+        //                 ->where('deleted_at', '=', null)
+
+        //                 ->orWhere('user_id', '=', $users)
+        //                 ->where('expired_at', '=', null)
+        //                 ->where('public', '=', 1)
+        //                 ->where('deleted_at', '=', null)
+                        
+        //                 ->orderBy('id', 'desc')
+        //                 ->get();
+
+        return view('user', ['namePage' => $namePage,
+                            'idModal' => $idModal,
+                            'userUrls' => $userUrls,
+                            'site' => $site,
+                            'userName' => $userName]);
     }
 
     /**

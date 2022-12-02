@@ -4,12 +4,15 @@
     @vite(['resources/css/user.css', 'resources/js/user.js'])
 </head>
 
+@if(Route::is('page.user.index') )
+
 @guest
 <p>You need to be logged in <a href="{{ route('page.login') }}">here</a>.</p>
 @endguest
 
 @auth
 <div class="bodyContainer">
+    {{Auth::id()}}
     <input type="button" value="Create URL" id="buttonModal">
     <x-modal pageName='Create URL' class="modal" idModal="{{$idModal}}">
         <x-slot:inputs>
@@ -84,5 +87,32 @@
     @endforeach
 </div>
 @endauth
+@endif
+
+@if(Route::is('page.user.show'))
+    <div class="bodyContainer">
+        <h2>{{ mb_convert_case($userName[0]->name, MB_CASE_TITLE, 'UTF-8') }} URL's</h2>
+        @foreach ($userUrls as $userUrls)
+        <div class="field-shortened-url">
+            <button class="button-copyUrl"><img src="{{ Vite::asset('public/midia/copy.png'); }}" alt="Copy short link"></button>
+            <div class="box box-shortened-url">
+                <div class="field-box field-goUrl">
+                    <img src="{{ Vite::asset('public/midia/external-link.png'); }}" alt="Go to link" class="img-external-link icon">
+                    <h3>
+                        @if ($userUrls->name_link == null)
+                        <a href="{{ $userUrls->recipient_link }}" value="{{ $site . $userUrls->shortened_link }}" target="_blank" class="goToUrl">{{ $userUrls->recipient_link }}</a>
+                        @else
+                        <a href="{{ $userUrls->recipient_link }}" value="{{ $site . $userUrls->shortened_link }}" target="_blank" class="goToUrl">{{ ucwords($userUrls->name_link) }}</a>
+                        @endif
+                    </h3>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+
+    {{-- {{$userUrls}} --}}
+@endif
+    
 @endsection
 @include('layout')
