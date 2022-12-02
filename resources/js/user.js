@@ -87,25 +87,12 @@ for (let i = 0; i < field.length; i++) {
     let url = document.querySelectorAll('.goToUrl')
 
     button.copy[i].addEventListener('click', function() {
-        navigator.clipboard.writeText(url[i].getAttribute('href')).then(
+        navigator.clipboard.writeText(url[i].getAttribute('value')).then(
             () => {
                 field[i].style.backgroundColor = 'white'
                 window.setTimeout(function(){ field[i].style.backgroundColor = '#ff5100' }, 1000)
+            },
+            () => {
+                console.log("can't copy the url")
             })})
 }
-
-function copyText() {
-    // Get the text field
-    // var copyText = document.getElementById("myInput");
-
-    // // Select the text field
-    // copyText.select();
-    // copyText.setSelectionRange(0, 99999); // For mobile devices
-
-    // // Copy the text inside the text field
-    // navigator.clipboard.writeText(copyText.value);
-
-    // // Alert the copied text
-    // alert("Copied the text: " + copyText.value);
-    window.alert('copiado!')
-} 

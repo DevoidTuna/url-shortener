@@ -66,9 +66,9 @@
                 <img src="{{ Vite::asset('public/midia/external-link.png'); }}" alt="Go to link" class="img-external-link icon">
                 <h3>
                     @if ($urls->name_link == null)
-                    <a href="{{ $urls->recipient_link }}" target="_blank" class="goToUrl">{{ $urls->recipient_link }}</a>
+                    <a href="{{ $urls->recipient_link }}" value="{{ $site . $urls->shortened_link }}" target="_blank" class="goToUrl">{{ $urls->recipient_link }}</a>
                     @else
-                    <a href="{{ $urls->recipient_link }}" target="_blank" class="goToUrl">{{ ucwords($urls->name_link) }}</a>
+                    <a href="{{ $urls->recipient_link }}" value="{{ $site . $urls->shortened_link }}" target="_blank" class="goToUrl">{{ ucwords($urls->name_link) }}</a>
                     @endif
                 </h3>
             </div>
