@@ -40,3 +40,5 @@ Route::get('/logout', [UserController::class, 'logout'])->name('do-logout');
 Route::post('/login', [UserController::class, 'doLogin'])->name('do-login');
 
 Route::post('/user/deleteUrl', [LinkController::class, 'deleteUrl'])->name('delete-url');
+
+Route::get('/{url}', [LinkController::class, 'redirectUrl'])->name('redirect-url');

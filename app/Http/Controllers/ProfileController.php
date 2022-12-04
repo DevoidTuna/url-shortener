@@ -76,19 +76,6 @@ class ProfileController extends Controller
                         ->orderBy('id', 'desc')
                         ->get();
 
-        // $userUrls = Link::where('user_id', '=', $users)
-        //                 ->where('expired_at', '>=', Carbon::now())
-        //                 ->where('public', '=', 1)
-        //                 ->where('deleted_at', '=', null)
-
-        //                 ->orWhere('user_id', '=', $users)
-        //                 ->where('expired_at', '=', null)
-        //                 ->where('public', '=', 1)
-        //                 ->where('deleted_at', '=', null)
-                        
-        //                 ->orderBy('id', 'desc')
-        //                 ->get();
-
         return view('user', ['namePage' => $namePage,
                             'idModal' => $idModal,
                             'userUrls' => $userUrls,

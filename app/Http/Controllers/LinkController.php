@@ -19,12 +19,31 @@ class LinkController extends Controller
 
     public function findUrlInDatabase(string $url)
     {
-        # code
+        
     }
 
     public function redirectToUrl(string $url)
     {
         # code
+    }
+
+    public function redirectUrl(string $url)
+    {
+        $shortUrl = Link::where('shortened_link', '=', $url)
+                        ->where(function ($query) {
+                                $query->where('expired_at', '>=', Carbon::now())
+                                    ->orWhere('expired_at', '=', null);
+                                })
+                        ->where('deleted_at', '=', null)
+                        ->first('recipient_link');
+
+
+        if(empty($shortUrl)) {
+            return 0; // return error page "shortened URL nof find"
+        }
+
+        return redirect($shortUrl->recipient_link);
+        
     }
 
     // Check if url has protocol and www and if not, insert it
@@ -44,9 +63,9 @@ class LinkController extends Controller
                     $startUrl = 'http://www.';
                 } else {
                     if(substr($url, 0, 7) !== 'http://') {
-                        return substr_replace($url, 'www.', strpos($url, 'http://') + 8, 0);
+                        return trim(substr_replace($url, 'www.', strpos($url, 'http://') + 8, 0));
                     } else {
-                        return substr_replace($url, 'www.', strpos($url, 'https://') + 9, 0);
+                        return trim(substr_replace($url, 'www.', strpos($url, 'https://') + 9, 0));
                     }
                 }
             }

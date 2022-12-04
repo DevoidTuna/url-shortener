@@ -12,7 +12,6 @@
 
 @auth
 <div class="bodyContainer">
-    {{Auth::id()}}
     <input type="button" value="Create URL" id="buttonModal">
     <x-modal pageName='Create URL' class="modal" idModal="{{$idModal}}">
         <x-slot:inputs>
