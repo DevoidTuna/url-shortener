@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,14 +12,12 @@ class UserController extends Controller
 
     public function getLoginPage()
     {
-        $namePage = 'Login';
-        return view('login', ['namePage' => $namePage]);
+        return view('login');
     }
 
     public function getRegisterPage()
     {
-        $namePage = 'Register';
-        return view('register', ['namePage' => $namePage]);
+        return view('register');
     }
 
     public function doRegister(Request $request)
@@ -30,12 +29,16 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
+            try {
+                $user->save();
+                Auth::login($user);
+                return route('user');
+            } catch (Exception $e) {
+                return view('register');
+            }
 
-            $user->save();
-            Auth::login($user);
-            return redirect('user');
         }else {
-            return redirect('register');
+            return view('register');
         }
     }
 
@@ -56,10 +59,8 @@ class UserController extends Controller
             return redirect()->intended('user');
         }
         $notRegistered = 1;
-        $namePage = 'Login';
         return view('login',
-        ['namePage' => $namePage,
-        'notRegistered' => $notRegistered ]);
+        ['notRegistered' => $notRegistered ]);
     }
 
     /**

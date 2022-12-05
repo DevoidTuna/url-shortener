@@ -16,8 +16,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    $namePage = 'Home';
-    return view('layout', ['namePage' => $namePage]);
+    return view('layout');
 })->name('page.index');
 
 Route::namespace('App\Http\Controllers')->group(function () {
@@ -42,3 +41,5 @@ Route::post('/login', [UserController::class, 'doLogin'])->name('do-login');
 Route::post('/user/deleteUrl', [LinkController::class, 'deleteUrl'])->name('delete-url');
 
 Route::get('/{url}', [LinkController::class, 'redirectUrl'])->name('redirect-url');
+
+Route::get('/notFound', [LinkController::class, 'notFound'])->name('page.not-found');

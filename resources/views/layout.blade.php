@@ -31,32 +31,6 @@
     </header>
 
     <div id="body-content">
-        <div id="sidebar" style="display: none">
-            <h3 id="titlePage">{{ $namePage; }}</h3>
-            <div class="sidebar-links">
-                @auth
-                    <ul>
-                        <li>
-                            <a href="{{ route('page.user.index'); }}">My URL's</a>
-                        </li>
-                    </ul>
-                @endauth
-                    
-                @guest
-                    <ul>
-                        <li>
-                            <a href="{{ route('page.login'); }}">Login</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <a href="{{ route('page.register'); }}">Register</a>
-                        </li>
-                    </ul>
-                @endguest
-            </div>
-        </div>
-
         <div id="content-container">
             @yield('content')
         </div>

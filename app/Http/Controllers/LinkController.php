@@ -4,27 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Link;
 use Carbon\Carbon;
-use GuzzleHttp\RetryMiddleware;
 use Illuminate\Http\Request;
-use PhpParser\Node\Expr\Cast\String_;
 
 class LinkController extends Controller
 {
     public function generateUrl()
-    {
+    {   
         $url = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"), 0, 15);
-        
+        while ($this->findUrlInDatabase($url)) {
+            $url = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"), 0, 15);
+        }
         return $url;
     }
 
     public function findUrlInDatabase(string $url)
     {
-        
+        $shortUrl = Link::where('shortened_link', '=', $url);
+        return empty($shortUrl);  
     }
 
-    public function redirectToUrl(string $url)
+    public function notFound()
     {
-        # code
+        $errorMessage = 'Page not found.';
+        return view('notFound', ['errorMessage' => $errorMessage]);
     }
 
     public function redirectUrl(string $url)
@@ -39,39 +41,23 @@ class LinkController extends Controller
 
 
         if(empty($shortUrl)) {
-            return 0; // return error page "shortened URL nof find"
+            $errorMessage = 'URL deleted or expired.';
+            return view('notFound', ['errorMessage' => $errorMessage]);
         }
 
         return redirect($shortUrl->recipient_link);
-        
     }
 
     // Check if url has protocol and www and if not, insert it
     public function checkLinkFormat(string $url)
     {
-
-        $startUrl = '';
-        if(strpos($url, 'http://www.') !== false || strpos($url, 'https://www.') !== false) {
+        if(strpos($url, 'http://') !== false || strpos($url, 'https://') !== false) {
             return $url;
         } else {
-            if(substr($url, 0, 7) !== 'http://' || substr($url, 0, 8) !== 'https://') {
-                $startUrl = 'http://';
-            }
-
-            if(strpos($url, 'www') === false) {
-                if(substr($url, 0, 7) !== 'http://' && substr($url, 0, 8) !== 'https://') {
-                    $startUrl = 'http://www.';
-                } else {
-                    if(substr($url, 0, 7) !== 'http://') {
-                        return trim(substr_replace($url, 'www.', strpos($url, 'http://') + 8, 0));
-                    } else {
-                        return trim(substr_replace($url, 'www.', strpos($url, 'https://') + 9, 0));
-                    }
-                }
-            }
-            return trim($startUrl . $url);
+            return 'http://' . $url; 
         }
     }
+
     
     public function store(Request $request)
     {
@@ -86,11 +72,6 @@ class LinkController extends Controller
         // Check if the shortened url will be public
         $public = '';
         $request->public == 'true' ? $public = 1 : $public = 0;
-        // if ($request->public == 'true') {
-        //     $public = 1;
-        // } else {
-        //     $public = 0;
-        // }
 
         Link::create([
             'user_id' => auth()->id(),
@@ -99,13 +80,13 @@ class LinkController extends Controller
             'recipient_link' => $this->checkLinkFormat($request->destinationUrl),
             'expired_at' => $expired,
             'public' => $public
-            // 'deleted_at' => null //check this later
         ]);
 
         return redirect('user');
     }
 
-    public function deleteUrl(Request $request) // do this now
+
+    public function deleteUrl(Request $request)
     {
         Link::where('id', '=', $request->link_id)
         ->update(['deleted_at' => Carbon::now()]);

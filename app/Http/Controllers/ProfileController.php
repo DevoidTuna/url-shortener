@@ -16,36 +16,20 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $namePage = 'Profile';
         $idModal = 'idModal';
         $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
         $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
         
         $urls = Link::where('user_id', '=', auth()->id())
                     ->where(
-                        function ($query) {
-                            $query->where('expired_at', '>=', Carbon::now())
-                                  ->orWhere('expired_at', '=', null);
-                        }
-                    )
+                    function ($query) {
+                        $query->where('expired_at', '>=', Carbon::now())
+                                ->orWhere('expired_at', '=', null);})
                     ->where('deleted_at', '=', null)
                     ->orderBy('id', 'desc')
-                    ->get();
-
-        // $urls = Link::where('user_id', '=', auth()->id())
-        //             ->where('expired_at', '>=', Carbon::now())
-        //             ->where('deleted_at', '=', null)
-
-        //             ->orWhere('user_id', '=', auth()->id())
-        //             ->where('expired_at', '=', null)
-        //             ->where('deleted_at', '=', null)
-
-        //             ->orderBy('id', 'desc')
-        //             ->get();
-                    
+                    ->get();                    
         
-        return view('user', ['namePage' => $namePage,
-                            'idModal' => $idModal,
+        return view('user', ['idModal' => $idModal,
                             'urls' => $urls,
                             'site' => $site
         ]);
@@ -59,7 +43,6 @@ class ProfileController extends Controller
      */
     public function show($users)
     {
-        $namePage = 'User';
         $idModal = 'idModal';
         $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
         $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
@@ -76,8 +59,7 @@ class ProfileController extends Controller
                         ->orderBy('id', 'desc')
                         ->get();
 
-        return view('user', ['namePage' => $namePage,
-                            'idModal' => $idModal,
+        return view('user', ['idModal' => $idModal,
                             'userUrls' => $userUrls,
                             'site' => $site,
                             'userName' => $userName]);
