@@ -1,0 +1,87 @@
+.bodyContent {
+    width: 460px;
+    margin: auto;
+}
+
+h2 {
+    margin-bottom: 40px;
+    font-size: 40px;
+}
+
+.box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.box label {
+    width: 85px;
+    text-align: center;
+}
+
+span {
+    color: red;
+    width: 100%;
+    text-align: end;
+    padding-right: 10px;
+    font-size: smaller;
+    visibility: hidden;
+}
+
+input {
+    width: 350px;
+    height: 40px;
+    text-indent: 11px;
+    border-radius: 10px;
+    border: 2px solid white;
+    background: none;
+    color: white;
+    font-size: 16px;
+    margin: 10px;
+}
+input:focus {
+    border-color: var(--color-orange);
+}
+label {
+    border-left: 2px solid var(--color-orange);
+    padding-left: 2px;
+}
+
+#btn-updateProfile {
+    display: block;
+    padding: 7px 18px;
+    background-color: var(--color-orange);
+    color: white;
+    font-size: 24px;
+    border-radius: 4px;
+    margin: 25px auto 8px auto;
+}
+
+#btn-updateProfile:hover {
+    cursor: pointer;
+}
+
+#btn-updateProfile:disabled {
+    background-color: transparent;
+    border: 1px solid var(--color-orange);
+    color: gray;
+    cursor: default;
+}
+
+.bottom-buttons {
+    width: 100%;
+    display: inline-block;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.successMessage {
+    width: 100%;
+    height: max-content;
+    border: 1px solid green;
+    border-radius: 10px;
+    background-color: rgb(208, 255, 196);
+    color: green;
+    padding: 5px 0px 5px 10px;
+    display: none;
+}

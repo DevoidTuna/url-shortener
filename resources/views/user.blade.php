@@ -13,7 +13,7 @@
 @auth
 <div class="bodyContainer">
     <input type="button" value="Create URL" id="buttonModal">
-    <x-modal pageName='Create URL' class="modal" idModal="{{$idModal}}">
+    <x-modal pageName='Create URL' class="modal" idModal="{{$modalCreateUrl}}">
         <x-slot:inputs>
             <form method="POST" action="{{ route('do-create-url') }}">
                 @csrf
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </form>
-            <button class="closeButton">close</button>
+            <button class="closeModalButton">close</button>
         </x-slot:inputs>
     </x-modal>
     <h2>My URLs</h2>
@@ -109,8 +109,7 @@
         </div>
         @endforeach
     </div>
-
-    {{-- {{$userUrls}} --}}
+    
 @endif
     
 @endsection

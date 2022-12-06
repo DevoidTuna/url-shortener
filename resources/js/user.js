@@ -4,13 +4,13 @@ import switchModal from "./modal";
 |   Set var and const
 */
 const button = {
-    modal: document.querySelector('#buttonModal'),
-    close: document.querySelector('.closeButton'),
-    copy: document.querySelectorAll('.button-copyUrl'),
+    openModalCreateUrl: document.querySelector('#buttonModal'),
+    closeModalCreateUrl: document.querySelector('.closeModalButton'),
+    copyShortUrl: document.querySelectorAll('.button-copyUrl'),
     generateUrl: document.querySelector('#generateUrlButton'),
 }
 const container = {
-    modal: document.querySelector('#idModal'),
+    modalCreateUrl: document.querySelector('#modalCreateUrl'),
 }
 const input = {
     destinationUrl: document.querySelector('#destinationUrl'),
@@ -19,23 +19,19 @@ const input = {
     radioAvaliableTime_NoExpiration: document.querySelector('#avaliableTime-noExpiration'),
 }
 
-// const field = {
-//     shortenedUrl: document.querySelectorAll('.field-shortened-url'),
-// }
-
 
 /* 
 |   Button to open modal
 */
-button.modal.addEventListener('click', function () {
-    switchModal(container.modal)
+button.openModalCreateUrl.addEventListener('click', function () {
     resetInputsCreateUrl()
+    switchModal(container.modalCreateUrl)
 
 })
 
-button.close.addEventListener('click', function () {
-    switchModal(container.modal)
+button.closeModalCreateUrl.addEventListener('click', function () {
     resetInputsCreateUrl()
+    switchModal(container.modalCreateUrl)
 })
 
 
@@ -81,12 +77,12 @@ function isValidUrl (urlString) {
 |   Function to copy button work
 */
 
-var field = document.querySelectorAll('div.field-shortened-url > button')
+const field = document.querySelectorAll('div.field-shortened-url > button')
 
 for (let i = 0; i < field.length; i++) {
     let url = document.querySelectorAll('.goToUrl')
 
-    button.copy[i].addEventListener('click', function() {
+    button.copyShortUrl[i].addEventListener('click', function() {
         navigator.clipboard.writeText(url[i].getAttribute('value')).then(
             () => {
                 field[i].style.backgroundColor = 'white'

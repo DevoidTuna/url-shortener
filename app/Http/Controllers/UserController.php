@@ -6,6 +6,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -36,7 +37,6 @@ class UserController extends Controller
             } catch (Exception $e) {
                 return view('register');
             }
-
         }else {
             return view('register');
         }
@@ -60,7 +60,7 @@ class UserController extends Controller
         }
         $notRegistered = 1;
         return view('login',
-        ['notRegistered' => $notRegistered ]);
+        ['notRegistered' => $notRegistered]);
     }
 
     /**
@@ -72,11 +72,39 @@ class UserController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-    
         $request->session()->invalidate();
-    
         $request->session()->regenerateToken();
-    
         return redirect('/');
+    }
+
+    public function getEditUserPage()
+    {
+        $user = User::where('id', '=', auth()->id())->first(['name', 'email']);
+        return view('editProfile', ['user' => $user]);
+    }
+
+    public function updateUser(Request $request)
+    {
+        $user = User::where('id', '=', auth()->id())->first();
+
+        if($request->name !== $user->name)
+        {
+            User::where('id', '=', $user->id)
+                ->update(['name' => trim($request->name)]);
+        }
+
+        if($request->email !== $user->email)
+        {
+            User::where('id', '=', $user->id)
+                ->update(['email' => trim($request->email)]);
+        }
+
+        if($request->newPassword !== null && Hash::check($request->newPassword, $user->password) == false)
+        {
+            User::where('id', '=', $user->id)
+                ->update(['password' => bcrypt($request->newPassword)]);
+        }
+
+        return redirect('user');
     }
 }

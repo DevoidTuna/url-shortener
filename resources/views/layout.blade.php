@@ -16,8 +16,8 @@
 
             <div id="header-user">
                 @auth
-                    <h2 class="header-greetings">Hi, {{ strtok(ucfirst(Auth::user()->name), ' '); }}!</h2>
-                    <a href="{{ route('page.user.index'); }}">Profile</a> | 
+                    <h2 class="header-greetings">Hi, <a href="{{ route('page.user.index'); }}">{{ strtok(ucfirst(Auth::user()->name), ' '); }}!</a></h2>
+                    <a href="{{ route('page.edit-user'); }}">Settings</a> | 
                     <a href="{{ route('do-logout'); }}">Logout</a>
                 @endauth
 

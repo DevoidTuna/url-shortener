@@ -16,7 +16,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $idModal = 'idModal';
+        $modalCreateUrl = 'modalCreateUrl';
         $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
         $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
         
@@ -29,7 +29,7 @@ class ProfileController extends Controller
                     ->orderBy('id', 'desc')
                     ->get();                    
         
-        return view('user', ['idModal' => $idModal,
+        return view('user', ['modalCreateUrl' => $modalCreateUrl,
                             'urls' => $urls,
                             'site' => $site
         ]);
@@ -43,12 +43,6 @@ class ProfileController extends Controller
      */
     public function show($users)
     {
-        $idModal = 'idModal';
-        $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
-        $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
-
-        $userName = User::where('id', '=', $users)->get('name');
-
         $userUrls = Link::where('user_id', '=', $users)
                         ->where(function ($query) {
                                 $query->where('expired_at', '>=', Carbon::now())
@@ -59,43 +53,21 @@ class ProfileController extends Controller
                         ->orderBy('id', 'desc')
                         ->get();
 
-        return view('user', ['idModal' => $idModal,
+        if(count($userUrls) == 0) {
+            $errorMessage = 'Deleted or non-existing user.';
+            return view('notFound', ['errorMessage' => $errorMessage]);
+        }
+
+        $modalCreateUrl = 'modalCreateUrl';
+        $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
+        $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
+
+        $userName = User::where('id', '=', $users)->get('name');
+
+        return view('user', ['modalCreateUrl' => $modalCreateUrl,
                             'userUrls' => $userUrls,
                             'site' => $site,
                             'userName' => $userName]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        
     }
 }

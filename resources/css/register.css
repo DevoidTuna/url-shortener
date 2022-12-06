@@ -20,11 +20,6 @@ label {
     margin-bottom: 40px;
     font-size: 40px;
 }
-#sidebar {
-    position: static;
-    display: none;
-    visibility: hidden;
-}
 .container-register {
     width: 460px;
     margin: 30px auto;
