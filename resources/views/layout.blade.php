@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dev.ly - URL Shortener</title>
     @vite('resources/css/layout.css')
 </head>
 <body>
@@ -16,15 +15,15 @@
 
             <div id="header-user">
                 @auth
-                    <h2 class="header-greetings">Hi, <a href="{{ route('page.user.index'); }}">{{ strtok(ucfirst(Auth::user()->name), ' '); }}!</a></h2>
-                    <a href="{{ route('page.edit-user'); }}">Settings</a> | 
-                    <a href="{{ route('do-logout'); }}">Logout</a>
+                    <h2 class="header-greetings">Hi, <a href="{{ route('page.user.index'); }}" id="header-userName">{{ strtok(ucfirst(Auth::user()->name), ' '); }}</a></h2>
+                    <a class="header-links" href="{{ route('page.edit-user'); }}">Settings</a> <span class="header-divisor">|</span> 
+                    <a class="header-links" href="{{ route('do-logout'); }}">Logout</a>
                 @endauth
 
                 @guest
                     <h2 class="header-greetings">Hello!</h2>
-                    <a href="{{ route('page.login'); }}">Login</a> | 
-                    <a href="{{ route('page.register'); }}">Register</a>
+                    <a class="header-links" href="{{ route('page.login'); }}">Login</a> <span class="header-divisor">|</span> 
+                    <a class="header-links" href="{{ route('page.register'); }}">Register</a>
                 @endguest
             </div>
         </div>

@@ -2,6 +2,7 @@
 @section('content')
 <head>
     @vite(['resources/css/editProfile.css', 'resources/js/editProfile.js'])
+    <title>Edit Account Settings - Dev.ly</title>
 </head>
 @auth
 <div class="bodyContent">

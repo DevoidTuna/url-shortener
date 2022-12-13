@@ -62,7 +62,7 @@ label {
     border-bottom: 2px solid var(--color-orange);
     border-radius: 2px;
 }
-span {
+.spanError {
     color: red;
     width: 100%;
     text-align: end;

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     @vite('resources/css/login.css')
+    <title>Login - Dev.ly</title>
 </head>
 @section('content')
 @auth
@@ -12,16 +13,15 @@
     <form action="{{ route('do-login') }}" method="POST">
         @csrf
         <label for="user-email">E-mail</label><br>
-        <input type="email" name="email" id="user-email" required><br>
+        <input type="email" name="email" id="user-email" required placeholder="Your email"><br>
         <label for="user-password">Password</label><br>
-        <input type="password" name="password" id="user-password" required><br>
+        <input type="password" name="password" id="user-password" placeholder="Your password" required><br>
         @if(isset($notRegistered))
             <span class="errorMessage">Invalid email or password.</span>
         @endif
         <div class="bottom-buttons">
             <div class="button-remember-me">
-                <input type="checkbox" name="rememberMe" id="checkbox-remember-me">
-                <label for="checkbox-remember-me" id="label-remember-me">Remember me.</label>
+                <a href="{{route('page.password-reset')}}">Forgot your password?</a>
             </div>
             <a href="{{ route('page.register') }}">Register now.</a>
         </div>

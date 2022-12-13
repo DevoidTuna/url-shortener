@@ -52,8 +52,10 @@ class ProfileController extends Controller
                         ->where('public', '=', 1)
                         ->orderBy('id', 'desc')
                         ->get();
-
-        if(count($userUrls) == 0) {
+                        
+        $userName = User::where('id', '=', $users)->get('name');
+        
+        if(count($userName) == 0) {
             $errorMessage = 'Deleted or non-existing user.';
             return view('notFound', ['errorMessage' => $errorMessage]);
         }
@@ -61,8 +63,7 @@ class ProfileController extends Controller
         $modalCreateUrl = 'modalCreateUrl';
         $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
         $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
-
-        $userName = User::where('id', '=', $users)->get('name');
+        
 
         return view('user', ['modalCreateUrl' => $modalCreateUrl,
                             'userUrls' => $userUrls,

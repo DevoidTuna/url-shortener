@@ -3,6 +3,7 @@
 use App\Http\Controllers\LinkController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +17,10 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('layout');
+    return view('index');
 })->name('page.index');
 
 Route::namespace('App\Http\Controllers')->group(function () {
-
     Route::get('/user', 'ProfileController@index')->name('page.user.index')->middleware('auth');
     Route::get('/user/{users}', 'ProfileController@show')->name('page.user.show');
 });
@@ -33,14 +33,24 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/edit', [UserController::class, 'updateUser'])->name('do-edit-user');    
 });
 
-Route::get('/register', [UserController::class, 'getRegisterPage'])->name('page.register');
+Route::get('/register', [UserController::class, 'getRegisterPage'])->middleware('guest')->name('page.register');
 
-Route::post('/register', [UserController::class, 'doRegister'])->name('do-register');
+Route::post('/register', [UserController::class, 'doRegister'])->middleware('guest')->name('do-register');
 
 Route::get('/login', [UserController::class, 'getLoginPage'])->name('page.login');
 
 Route::post('/login', [UserController::class, 'doLogin'])->name('do-login');
 
-Route::get('/{url}', [LinkController::class, 'redirectUrl'])->name('redirect-url');
-
 Route::get('/notFound', [LinkController::class, 'notFound'])->name('page.not-found');
+
+Route::get('/password/reset', [ResetPasswordController::class, 'getPasswordReset'])->name('page.password-reset');
+
+Route::post('/password/reset', [ResetPasswordController::class, 'validatePasswordRequest'])->name('do-password-reset');
+
+Route::get('/send', [ResetPasswordController::class, 'sendResetEmail'])->name('do-send-password-email');
+
+Route::get('/password/new/{token}', [ResetPasswordController::class, 'getPasswordNew'])->name('page.password-new');
+
+Route::post('/password/new', [ResetPasswordController::class, 'resetPassword'])->name('do-password-new');
+
+Route::get('/{url}', [LinkController::class, 'redirectUrl'])->name('redirect-url');

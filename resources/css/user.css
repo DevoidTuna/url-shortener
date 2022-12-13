@@ -57,13 +57,19 @@ input[type="radio"] {
     margin-bottom: 30px;
 }
 
+#span-destinationUrl {
+    display: none;
+    color: rgb(206, 0, 0);
+    background-color: rgb(255, 130, 130);
+    padding: 4px 10px;
+    border: 1px solid red;
+    border-radius: 5px;
+}
+
 .displayFlex {
     display: flex;
 }
-#copyButton {
-    height: 34px;
-    width: 92px;
-}
+
 button:disabled, 
 button:disabled:hover, 
 button:disabled:active {
@@ -72,43 +78,44 @@ button:disabled:active {
     cursor: not-allowed;
 }
 
-/* box */
-
 .bodyContainer {
-    margin: 20px 17%;
-    max-width: 1000px;
+    margin-top: 30px;
     align-items: center;
-    display: block;
 }
 
 .box {
     width: 100%;
-    border: 1px solid red;
     border-radius: 30px;
+    border: 2px solid var(--color-orange);
+    box-shadow: 0px 12px 30px -9px black;
     margin: 15px 0px;
     display: flex;
+    font-size: 12pt;
 }
 
 .field-shortened-url {
     display: flex;
     align-items: center;
+    width: fit-content;
 }
 
 .box-shortened-url {
-    background-color: rgb(255, 255, 255);
-    border: none;
+    background-color: transparent;
     color: black;
-    padding:5px 20px 5px 5px;
-    width: 70%;
-    min-width: 400px;
+    padding:5px 20px 5px 10px;
+    width: 560px;
+    height: max-content; 
     margin-left: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0px 12px 30px -9px black;
 }
 
 .field-box {
     display: inline-flex;
+    align-items: center;
+
 }
 
 .field-goUrl {
@@ -117,50 +124,48 @@ button:disabled:active {
     white-space: nowrap;
 }
 
-.button-copyUrl {
-    display: inline-block;
+.title {
+    border-color: var(--color-orange);
 }
 
 .divisor {
-    margin: 0px 5px;
-    color: rgb(182, 182, 182);
+    margin: 0px 5px 6px 5px;
+    color: #dadada;
     font-size: 23px;
 }
 
 .goToUrl {
     text-decoration: none;
-    
 }
+
+.field-goUrl h3 {
+    margin-left: 9px;
+}
+
 
 .goToUrl:hover {
     border-bottom: 2px solid var(--color-orange);
 }
 
 #buttonModal {
-    box-shadow: none;
-    margin: 0px;
-    margin-bottom: 35px;
-    width: 100%;
-    height: 55px;
-    border-radius: 30px;
-    box-shadow: 0px 0px 9px black;
-    font-size: 30px;
-    font-weight: 500;
-    color: rgb(255, 255, 255);
-}
-
-.button-editUrl {
-    margin: 0px 5px;
-    background-color: rgb(41, 41, 255);
-    color: white;
+    position: absolute;
+    right: 13.7%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    box-shadow: none;
+    justify-content: center;
+    width: 172px;
+    box-shadow: 0px 12px 30px -9px black;
+    border-radius: 10px;
+    border: 2px solid white;
+    font-weight: 500;
+    color: white;
 }
 
-.button-editUrl:hover {
-    background-color: rgb(30, 30, 214);
+.title-myUrls {
+    margin-top: 40px;
+    margin-bottom: 5px;
+    font-size: 23pt;
+    font-weight: 900;
 }
 
 .button-deleteUrl {
@@ -176,10 +181,27 @@ button:disabled:active {
     background-color: rgb(182, 32, 32);
 }
 
+.img-delete {
+    width: 25px;
+}
+
 .button-copyUrl {
-    height: 40px;
-    width: 50px;
+    height: 45px;
+    width: 55px;
     border-radius: 50px;
+    display: flex;
+    background-color: #ff5e00;
+    box-shadow: 0px 12px 30px -9px black;
+}
+
+.button-copyUrl img {
+    margin: auto;
+    width: max-content;
+    height: max-content;
+}
+
+.button-copyUrl:hover {
+    cursor: pointer;
 }
 
 .icon {
@@ -188,6 +210,22 @@ button:disabled:active {
     margin: 0px 3px;
 }
 
-.img-external-link {
-    margin-top: 3px;
+.img-link {
+    width: 24px;
+    height: 24px;
+}
+
+.img-add-to-list {
+    width: 23px;
+    height: 25px;
+    margin-left: 10px;
+}
+
+.warning {
+    font-size: 30px;
+}
+
+#content-container {
+    display: flex;
+    justify-content: center;
 }

@@ -55,9 +55,6 @@ input:focus {
 #label-remember-me {
     border: none;
 }
-#sidebar {
-    visibility: hidden;
-}
 .bottom-buttons a {
     color: var(--color-orange);
     text-decoration: none;

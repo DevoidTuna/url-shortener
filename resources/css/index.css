@@ -1,0 +1,65 @@
+input[type="button"], button {
+    padding: 5px 9px;
+    background-color: var(--color-orange);
+    border-radius: 3px;
+    font-size: large;
+    font-weight: 400;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 1px 1px 12px black;
+}
+input[type="button"]:hover, button:hover {
+    color: white;
+    cursor: pointer;
+}
+input[type="button"]:active, button:active {
+    background-color: black;
+    color: white;
+}
+#content-container {
+    margin: 0px;
+    margin-left: 43%;
+    justify-content: space-between;
+}
+
+.bodyImg {
+    width: 100%;
+}
+
+#logo {
+    position: absolute;
+    max-height: 90%;
+    max-width: 58%;
+    left: -80px;
+    top: 100px;
+}
+
+.buttonStartNow {
+    margin-top: 11%;
+}
+
+.btnStartNow {
+    width: 50%;
+    height: 80px;
+    font-size: 30px;
+    font-weight: 500;
+    box-shadow: 0px 12px 30px -9px black;
+    border-radius: 10px;
+    border: 2px solid white;
+}
+
+.index-content {
+    display: block;
+    text-align: center;
+}
+
+.title {
+    font-size: 37px;
+}
+
+.text {
+    display: block;
+    max-width: 800px;
+    height: 40%;
+    text-align: left;
+}

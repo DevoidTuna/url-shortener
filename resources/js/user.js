@@ -18,33 +18,54 @@ const input = {
     radioVisibilityPublic: document.querySelector('#visibility-public'),
     radioAvaliableTime_NoExpiration: document.querySelector('#avaliableTime-noExpiration'),
 }
+const span = {
+    destinationUrl: document.querySelector('#span-destinationUrl')
+}
+const form = {
+    formCreateUrl: document.querySelector('#formCreateUrl')
+}
 
 
-/* 
-|   Button to open modal
-*/
-button.openModalCreateUrl.addEventListener('click', function () {
-    resetInputsCreateUrl()
-    switchModal(container.modalCreateUrl)
+if (button.openModalCreateUrl != null) {
+    /* 
+    |   Button to open modal
+    */
+    button.openModalCreateUrl.addEventListener('click', function () {
+        resetInputsCreateUrl()
+        switchModal(container.modalCreateUrl)
+    
+    })
+    
+    button.closeModalCreateUrl.addEventListener('click', function () {
+        resetInputsCreateUrl()
+        switchModal(container.modalCreateUrl)
+    })
 
-})
 
-button.closeModalCreateUrl.addEventListener('click', function () {
-    resetInputsCreateUrl()
-    switchModal(container.modalCreateUrl)
-})
+    /* 
+    |   Enable/disable button Generate URL
+    */
+    input.destinationUrl.addEventListener('input', function () {
+        if (input.destinationUrl.value.length > 0) {
+            button.generateUrl.removeAttribute('disabled')
+        } else {
+            button.generateUrl.setAttribute('disabled', 1)
+        }
+    })
 
 
-/* 
-|   Enable/disable button Generate URL
-*/
-input.destinationUrl.addEventListener('input', function () {
-    if (input.destinationUrl.value.length > 0) {
-        button.generateUrl.removeAttribute('disabled')
-    } else {
-        button.generateUrl.setAttribute('disabled', 1)
-    }
-})
+    /* 
+    |   Enable/disable button Generate URL
+    */
+    button.generateUrl.addEventListener('click', function() {
+        if(isValidUrl(input.destinationUrl.value) == false) {
+            span.destinationUrl.style.display = 'inline-block'
+        } else {
+            span.destinationUrl.style.display = 'none'
+            form.formCreateUrl.submit()
+        }
+    })
+}
 
 
 /* 
@@ -56,6 +77,7 @@ function resetInputsCreateUrl() {
     input.nameUrl.value = ''
     input.destinationUrl.value = ''
     button.generateUrl.setAttribute('disabled', 1)
+    span.destinationUrl.style.display = 'none'
 }
 
 
@@ -63,20 +85,20 @@ function resetInputsCreateUrl() {
 |   Validade URL
 |   checking later this function to insert in program
 */
-function isValidUrl (urlString) {
-    var urlPattern = new RegExp('((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
-    '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
-    return !!urlPattern.test(urlString);
+const isValidUrl = urlString=> {
+    var urlPattern = new RegExp('^(https?:\\/\\/)?'+ 
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ 
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ 
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ 
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+  
+    '(\\#[-a-z\\d_]*)?$','i')
+    return urlPattern.test(urlString);
 }
 
 
 /* 
 |   Function to copy button work
 */
-
 const field = document.querySelectorAll('div.field-shortened-url > button')
 
 for (let i = 0; i < field.length; i++) {
@@ -86,7 +108,7 @@ for (let i = 0; i < field.length; i++) {
         navigator.clipboard.writeText(url[i].getAttribute('value')).then(
             () => {
                 field[i].style.backgroundColor = 'white'
-                window.setTimeout(function(){ field[i].style.backgroundColor = '#ff5100' }, 1000)
+                window.setTimeout(function(){ field[i].style.backgroundColor = '#ff5e00' }, 1000)
             },
             () => {
                 console.log("can't copy the url")
