@@ -26,7 +26,7 @@
             </div>
             <div class="box">
                 <label for="confirm-password">Confirm<br>Password:</label>
-                <input type="password" name="confirm-password" id="confirm-password" placeholder="Enter your password again" required>
+                <input type="password" name="password_confirmation" id="confirm-password" placeholder="Enter your password again" required>
                 <span class="spanError" id="span-confirmPassword">The passwords entered do not match</span>
             </div>
             <div class="bottom-buttons">

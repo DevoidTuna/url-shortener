@@ -10,11 +10,10 @@
 		@csrf
 		<label for="new-password">New password</label><br>
         <input type="password" name="password" id="new-password" placeholder="Min 6 letters" required><br>
-		<span id="span-password">The password must be 6 or more characters</span>
-		<label for="confirm-password">Confirm the new password</label><br>
-        <input type="password" name="confirm-password" id="confirm-password" placeholder="Insert your new password again" required><br>
-		<span id="span-confirmPassword">The passwords entered do not match</span>
-
+		<span class="spanError" id="span-password">The password must be 6 or more characters</span>
+		<label for="password_confirmation">Confirm the new password</label><br>
+        <input type="password" name="confirm-password" id="password_confirmation" placeholder="Insert your new password again" required><br>
+		<span class="spanError" id="span-confirmPassword">The passwords entered do not match</span>
 		<button id="btn-updatePassword">UPDATE PASSWORD</button>
 	</form>
 </div>

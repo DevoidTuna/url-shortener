@@ -5,16 +5,13 @@
     text-align: left;
     text-transform: uppercase;
 }
-
 .field input {
     margin: 0px 10px 15px;
 }
-
 .field label, 
 .field input {
     display: block;
 }
-
 input[type="radio"] {
     display: inline-block;
     text-align: left;
@@ -49,14 +46,14 @@ input[type="radio"] {
     border-left: 2px solid white;
     padding-left: 3px;
 }
-#destinationUrl, #nameUrl{
+#destinationUrl, 
+#nameUrl{
     width: 100%;
 }
 .generate-button button {
     padding: 15px;
     margin-bottom: 30px;
 }
-
 #span-destinationUrl {
     display: none;
     color: rgb(206, 0, 0);
@@ -65,11 +62,9 @@ input[type="radio"] {
     border: 1px solid red;
     border-radius: 5px;
 }
-
 .displayFlex {
     display: flex;
 }
-
 button:disabled, 
 button:disabled:hover, 
 button:disabled:active {
@@ -77,12 +72,10 @@ button:disabled:active {
     color: black;
     cursor: not-allowed;
 }
-
 .bodyContainer {
     margin-top: 30px;
     align-items: center;
 }
-
 .box {
     width: 100%;
     border-radius: 30px;
@@ -92,18 +85,16 @@ button:disabled:active {
     display: flex;
     font-size: 12pt;
 }
-
 .field-shortened-url {
     display: flex;
     align-items: center;
     width: fit-content;
 }
-
 .box-shortened-url {
     background-color: transparent;
     color: black;
     padding:5px 20px 5px 10px;
-    width: 560px;
+    width: 600px;
     height: max-content; 
     margin-left: 8px;
     display: flex;
@@ -111,42 +102,34 @@ button:disabled:active {
     justify-content: space-between;
     box-shadow: 0px 12px 30px -9px black;
 }
-
 .field-box {
     display: inline-flex;
     align-items: center;
-
 }
-
 .field-goUrl {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
 }
-
 .title {
     border-color: var(--color-orange);
 }
-
 .divisor {
     margin: 0px 5px 6px 5px;
     color: #dadada;
     font-size: 23px;
 }
-
 .goToUrl {
     text-decoration: none;
 }
-
 .field-goUrl h3 {
     margin-left: 9px;
 }
-
-
 .goToUrl:hover {
     border-bottom: 2px solid var(--color-orange);
 }
-
 #buttonModal {
     position: absolute;
     right: 13.7%;
@@ -160,14 +143,12 @@ button:disabled:active {
     font-weight: 500;
     color: white;
 }
-
 .title-myUrls {
     margin-top: 40px;
     margin-bottom: 5px;
     font-size: 23pt;
     font-weight: 900;
 }
-
 .button-deleteUrl {
     color: white;
     background-color: rgb(240, 26, 26);
@@ -176,15 +157,12 @@ button:disabled:active {
     align-items: center;
     box-shadow: none;
 }
-
 .button-deleteUrl:hover {
     background-color: rgb(182, 32, 32);
 }
-
 .img-delete {
     width: 25px;
 }
-
 .button-copyUrl {
     height: 45px;
     width: 55px;
@@ -193,38 +171,31 @@ button:disabled:active {
     background-color: #ff5e00;
     box-shadow: 0px 12px 30px -9px black;
 }
-
 .button-copyUrl img {
     margin: auto;
     width: max-content;
     height: max-content;
 }
-
 .button-copyUrl:hover {
     cursor: pointer;
 }
-
 .icon {
     width: 20px;
     height: 20px;
     margin: 0px 3px;
 }
-
 .img-link {
     width: 24px;
     height: 24px;
 }
-
 .img-add-to-list {
     width: 23px;
     height: 25px;
     margin-left: 10px;
 }
-
 .warning {
     font-size: 30px;
 }
-
 #content-container {
     display: flex;
     justify-content: center;

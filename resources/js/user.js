@@ -25,7 +25,6 @@ const form = {
     formCreateUrl: document.querySelector('#formCreateUrl')
 }
 
-
 if (button.openModalCreateUrl != null) {
     /* 
     |   Button to open modal
@@ -41,7 +40,6 @@ if (button.openModalCreateUrl != null) {
         switchModal(container.modalCreateUrl)
     })
 
-
     /* 
     |   Enable/disable button Generate URL
     */
@@ -52,7 +50,6 @@ if (button.openModalCreateUrl != null) {
             button.generateUrl.setAttribute('disabled', 1)
         }
     })
-
 
     /* 
     |   Enable/disable button Generate URL
@@ -67,7 +64,6 @@ if (button.openModalCreateUrl != null) {
     })
 }
 
-
 /* 
 |   Function to reset the inputs of creation URL
 */
@@ -79,7 +75,6 @@ function resetInputsCreateUrl() {
     button.generateUrl.setAttribute('disabled', 1)
     span.destinationUrl.style.display = 'none'
 }
-
 
 /* 
 |   Validade URL
@@ -94,7 +89,6 @@ const isValidUrl = urlString=> {
     '(\\#[-a-z\\d_]*)?$','i')
     return urlPattern.test(urlString);
 }
-
 
 /* 
 |   Function to copy button work

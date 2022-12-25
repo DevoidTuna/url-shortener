@@ -1,67 +1,51 @@
 .container {
     box-sizing: border-box;
-
     background-color: rgba(0, 0, 0, 0.685);
-
     flex-direction: column;
     align-items: center;
     justify-content: center;
     top: 0px;
     left: 0px;
     display: none;
-
     overflow: hidden;
-
     position: fixed;
     margin: auto;
-
     width: 100%;
     height: 100%;
-
     z-index: 800;
 }
-
 .modal {
     width: max-content;
     max-height: 80%;
     padding: 10px 80px;
     overflow: auto;
     min-width: 500px;
-
     border: 3px solid white;
     border-radius: 9px;
-
     background-color: var(--color-gray);
-
     text-align: center;
 }
-
 .modal h2 {
     margin-top: 5px;
     padding-bottom: 10px;
     border-bottom: 0.1px solid rgba(134, 134, 134, 0.74);
     text-transform: uppercase;
 }
-
 .content {
     margin: 20px;
 }
-
 #modalChangeBtn {
     padding: 5px 15px;
     margin: 30px;
 }
-
 #content-container {
     display: 0px;
     padding: 0px;
     padding-top: 0px;
 }
-
 input {
     display: block;
     margin: 10px;
-
     padding: 5px;
 }
 input[type="button"], button {
@@ -74,16 +58,18 @@ input[type="button"], button {
     cursor: pointer;
     box-shadow: 1px 1px 12px black;
 }
-input[type="button"]:hover, button:hover {
+input[type="button"]:hover, 
+button:hover {
     color: white;
     cursor: pointer;
 }
-input[type="button"]:active, button:active {
+input[type="button"]:active, 
+button:active {
     background-color: black;
     color: white;
 }
-/* Check this item "checkbox:checked" later */
-input[type="checkbox"], input[type="radio"] {
+input[type="checkbox"], 
+input[type="radio"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -98,7 +84,8 @@ input[type="checkbox"], input[type="radio"] {
 input[type="radio"] {
     border-radius: 100% !important;
 }
-input[type="checkbox"]:checked, input[type="radio"]:checked {
+input[type="checkbox"]:checked, 
+input[type="radio"]:checked {
     border: 7px solid var(--color-orange);
 }
 input[type="color"] {
@@ -106,17 +93,19 @@ input[type="color"] {
     width: 40px;
     height: 27px;
 }
-input[type="date"], input[type="datetime-local"], input[type="time"]  {
+input[type="date"], 
+input[type="datetime-local"], 
+input[type="time"]  {
     font-size: large;
     font-weight: 900;
     background-color: var(--color-black);
     border: 2px solid var(--color-orange);
     color: white;
 }
-input[type="email"], input[type="text"], input[type="password"],
-input[type="text"], input[type="number"], input[type="search"],
+input[type="email"], input[type="text"], 
+input[type="password"], input[type="text"], 
+input[type="number"], input[type="search"],
 input[type="url"], input[type="week"] {
-    
     background-color: var(--color-black);
     border: 2px solid var(--color-orange);
     font-size: 17px;

@@ -5,7 +5,6 @@
     padding: 0px;
     margin: 0px;
     border: 0px;
-
     --color-purple: rgb(67, 0, 223);
     --color-orange: rgb(255, 81, 0);
     --color-gray: rgb(27, 27, 27);
@@ -19,21 +18,16 @@ input:focus {
 }
 body {
     background-color: var(--color-gray);
-
     color: white;
-
     font-family: 'Open Sans';
-
     display: flex;
     flex-direction: column;
 }
 header {
     z-index: 100;
     position: relative;
-
     background-color: var(--color-black);
     box-shadow: 2px -34px 9px 34px rgba(0,0,0,0.75);
-
     top: 0px;
     width: 100%;
     min-width: 600px;
@@ -69,6 +63,7 @@ header div div img {
 }
 #header-userName{
     color: var(--color-orange) !important;
+    text-transform: capitalize !important;
 }
 .header-divisor {
     color: var(--color-orange);
@@ -84,12 +79,10 @@ header div div img {
     padding: 100px;
     min-width: 450px;
     padding-top: 20px;
-
     margin: 0px auto;
 }
 footer {
     z-index: 100;
-
     background-color: rgb(15, 15, 15);
     box-shadow: 2px 34px 9px 34px rgba(0,0,0,0.75);
     color: var(--color-orange);
@@ -102,7 +95,6 @@ footer {
 footer p {
     padding-bottom: 3px;
 }
-
 button:hover {
     cursor: pointer;
 }

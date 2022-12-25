@@ -60,7 +60,6 @@ input:focus {
     text-decoration: none;
     padding: 2px;
     border-bottom: 2px solid transparent;
-    
 }
 .bottom-buttons a:hover {
     border-bottom: 2px solid var(--color-orange);

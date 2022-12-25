@@ -8,9 +8,8 @@
 <head>
     <title>My Profile - Dev.ly</title>
 </head>
-
 <div class="bodyContainer">
-<button type="button" id="buttonModal">Create URL <img src="{{ Vite::asset('public/midia/add-to-list.png'); }}"  alt="add link" class="img-add-to-list icon"></button>
+    <button type="button" id="buttonModal">Create URL <img src="{{ Vite::asset('public/midia/add-to-list.png'); }}"  alt="add link" class="img-add-to-list icon"></button>
     <x-modal pageName='Create URL' class="modal" idModal="{{$modalCreateUrl}}">
         <x-slot:inputs>
             <form method="POST" action="{{ route('do-create-url') }}" id="formCreateUrl">
@@ -56,29 +55,31 @@
         </x-slot:inputs>
     </x-modal>
     <h2 class="title title-myUrls"><img src="{{ Vite::asset('public/midia/link.png'); }}"  alt="my urls" class="img-link icon">My URLs</h2>
-    @foreach ($urls as $urls)
+    @foreach ($urls as $url)
     <div class="field-shortened-url">
         <button class="button-copyUrl"><img src="{{ Vite::asset('public/midia/copy.png'); }}" alt="copy url"></button>
         <div class="box box-shortened-url">
             <div class="field-box field-goUrl">
-                @if (!$urls->public)
+                @if (!$url->public)
                 <img src="{{ Vite::asset('public/midia/padlock.png'); }}" alt="private link" class="img-isPublic icon">
                 @else
                 <img src="{{ Vite::asset('public/midia/public.png'); }}" alt="private link" class="img-isPublic icon">
                 @endif
                 <h3>
-                    @if ($urls->name_link == null)
-                    <a href="{{ $urls->recipient_link }}" value="{{ $site . $urls->shortened_link }}" target="_blank" class="goToUrl">{{ $urls->recipient_link }}</a>
+                    @if ($url->name_link == null)
+                    <a href="{{ $url->recipient_link }}" value="{{ $site . $url->shortened_link }}" target="_blank" class="goToUrl">{{ $url->recipient_link }}</a>
                     @else
-                    <a href="{{ $urls->recipient_link }}" value="{{ $site . $urls->shortened_link }}" target="_blank" class="goToUrl">{{ ucwords($urls->name_link) }}</a>
+                    <a href="{{ $url->recipient_link }}" value="{{ $site . $url->shortened_link }}" target="_blank" class="goToUrl">{{ ucwords($url->name_link) }}</a>
                     @endif
                 </h3>
             </div>
             <div class="field-box">
                 <span class="divisor">|</span>
+                <span class="shortUrl"><a href="{{ $site . $url->shortened_link }}" value="{{ $site . $url->shortened_link }}" target="_blank" class="goToUrl">{{'/' . $url->shortened_link }}</a></span>
+                <span class="divisor">|</span>
                 <form method="POST" action="{{route('delete-url')}}" class="field-shortened-url delete-button">
                     @csrf
-                    <button type="submit" name="link_id" value="{{$urls->id}}" class="button-deleteUrl"><img src="{{ Vite::asset('public/midia/delete.png'); }}" alt="Delete URL"class="img-delete"></button>    
+                    <button type="submit" name="link_id" value="{{$url->id}}" class="button-deleteUrl"><img src="{{ Vite::asset('public/midia/delete.png'); }}" alt="Delete URL"class="img-delete"></button>    
                 </form>
             </div>
         </div>
@@ -89,31 +90,30 @@
 
 @if(Route::is('page.user.show'))
     <head>
-        <title>{{ mb_convert_case($userName[0]->name, MB_CASE_TITLE, 'UTF-8') }} URLs - Dev.ly</title>
+        <title>{{ mb_convert_case($user->name, MB_CASE_TITLE, 'UTF-8') }} URLs - Dev.ly</title>
     </head>
-
     <div class="bodyContainer">
         @if (sizeof($userUrls) == 0)
-            <h2 class="title title-myUrls"><img src="{{ Vite::asset('public/midia/link.png'); }}"  alt="my urls" class="img-link icon">{{ mb_convert_case($userName[0]->name, MB_CASE_TITLE, 'UTF-8') }} has no active URLs currently.</h2>
+            <h2 class="title title-myUrls"><img src="{{ Vite::asset('public/midia/link.png'); }}"  alt="my urls" class="img-link icon">{{ mb_convert_case($user->name, MB_CASE_TITLE, 'UTF-8') }} has no active URLs currently.</h2>
         @else
-        <h2 class="title title-myUrls"><img src="{{ Vite::asset('public/midia/link.png'); }}"  alt="{{$userName[0]->name}} urls" class="img-link icon">{{ mb_convert_case($userName[0]->name, MB_CASE_TITLE, 'UTF-8') }} URLs</h2>
-                @foreach ($userUrls as $userUrls)
-                <div class="field-shortened-url">
-                    <button class="button-copyUrl"><img src="{{ Vite::asset('public/midia/copy.png'); }}" alt="Copy short link"></button>
-                    <div class="box box-shortened-url">
-                        <div class="field-box field-goUrl">
-                            <img src="{{ Vite::asset('public/midia/public.png'); }}" alt="private link" class="img-isPublic icon">
-                            <h3>
-                                @if ($userUrls->name_link == null)
-                                <a href="{{ $userUrls->recipient_link }}" value="{{ $site . $userUrls->shortened_link }}" target="_blank" class="goToUrl">{{ $userUrls->recipient_link }}</a>
-                                @else
-                                <a href="{{ $userUrls->recipient_link }}" value="{{ $site . $userUrls->shortened_link }}" target="_blank" class="goToUrl">{{ ucwords($userUrls->name_link) }}</a>
-                                @endif
-                                <span class="divisor"></span>
-                            </h3>
-                        </div>
+            <h2 class="title title-myUrls"><img src="{{ Vite::asset('public/midia/link.png'); }}"  alt="{{$user->name}} urls" class="img-link icon">{{ mb_convert_case($user->name, MB_CASE_TITLE, 'UTF-8') }} URLs</h2>
+            @foreach ($userUrls as $url)
+            <div class="field-shortened-url">
+                <button class="button-copyUrl"><img src="{{ Vite::asset('public/midia/copy.png'); }}" alt="Copy short link"></button>
+                <div class="box box-shortened-url">
+                    <div class="field-box field-goUrl">
+                        <img src="{{ Vite::asset('public/midia/public.png'); }}" alt="private link" class="img-isPublic icon">
+                        <h3>
+                            @if ($url->name_link == null)
+                            <a href="{{ $url->recipient_link }}" value="{{ $site . $url->shortened_link }}" target="_blank" class="goToUrl">{{ $url->recipient_link }}</a>
+                            @else
+                            <a href="{{ $url->recipient_link }}" value="{{ $site . $url->shortened_link }}" target="_blank" class="goToUrl">{{ ucwords($url->name_link) }}</a>
+                            @endif
+                            <span class="divisor"></span>
+                        </h3>
                     </div>
                 </div>
+            </div>
             @endforeach
         @endif
     </div>

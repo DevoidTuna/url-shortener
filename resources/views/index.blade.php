@@ -11,7 +11,7 @@
     <div class="text">
         <h2 class="title">Dev.ly. A simple URL shortener.</h2>
         <br>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium placeat molestias, beatae quam dolorem consequuntur magnam animi laborum sit nesciunt dolores nisi optio deserunt officia mollitia consequatur autem, velit nemo.</p>
+        <p>A personalized URL shortening platform, with profiles containing URLs set as public and not yet expired. Click the button below to start creating shortened URLs or create your registration.</p>
     </div>
     <div class="buttonStartNow">
         <a href="{{ route('page.user.index')}}">

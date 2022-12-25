@@ -3,19 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-
     public function getLoginPage()
     {
-        return view('login');
+        return view(
+            'login', 
+            [
+                'notRegistered' => false
+            ]
+        );
     }
 
     public function getRegisterPage()
@@ -24,23 +26,28 @@ class UserController extends Controller
     }
 
     public function doRegister(Request $request)
-    {  
+    {
         if(!empty($request->all()))
         {
-            $user = new User;
+            $credentials = $request->validate([
+                'name' => ['required', 'min:3'],   
+                'email' => ['required', 'email'],   
+                'password' => ['required', 'min:6', 'confirmed']
+            ]);
 
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            try {
+            if($credentials) {
+                $user = new User;
+                $user->name = Str::upper($request->name);
+                $user->email = Str::lower($request->email);
+                $user->password = Hash::make($request->password);
                 $user->save();
                 Auth::login($user);
-                return route('user');
-            } catch (Exception $e) {
-                return view('register');
+                return redirect('user');
+            } else {
+                return redirect('register');
             }
         }else {
-            return view('register');
+            return redirect('register');
         }
     }
 
@@ -60,9 +67,12 @@ class UserController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('user');
         }
-        $notRegistered = 1;
-        return view('login',
-        ['notRegistered' => $notRegistered]);
+        return view(
+            'login', 
+            [
+                'notRegistered' => true
+            ]
+        );
     }
 
     /**
@@ -81,32 +91,43 @@ class UserController extends Controller
 
     public function getEditUserPage()
     {
-        $user = User::where('id', '=', auth()->id())->first(['name', 'email']);
-        return view('editProfile', ['user' => $user]);
+        return view(
+            'editProfile', 
+            [
+                'user' => Auth::user(), 
+                'passwordUpdate' => false, 
+                'disabled' => ''
+            ]
+        );
     }
 
-    public function updateUser(Request $request)
+    public function updateUser(Request $request) 
     {
-        $user = User::where('id', '=', auth()->id())->first();
-
-        if($request->name !== $user->name)
-        {
-            User::where('id', '=', $user->id)
-                ->update(['name' => trim($request->name)]);
-        }
-
-        if($request->email !== $user->email)
-        {
-            User::where('id', '=', $user->id)
-                ->update(['email' => trim($request->email)]);
-        }
-
-        if($request->newPassword !== null && Hash::check($request->newPassword, $user->password) == false)
-        {
-            User::where('id', '=', $user->id)
-                ->update(['password' => bcrypt($request->newPassword)]);
-        }
+        User::where('id', '=', Auth::id())
+            ->first()
+            ->update(
+                [
+                    'name' => Str::upper($request->name),
+                    'email' => Str::lower($request->email)
+                ]
+            );
 
         return redirect('user');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+        User::where('id', '=', Auth::id())
+            ->update(['password' => Hash::make($request->newPassword)]);
+        
+        return view(
+            'editProfile', 
+            [
+                'user' => $user, 
+                'passwordUpdate' => true, 
+                'disabled' => 'disabled'
+            ]
+        );
     }
 }

@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Carbon;
 
 return new class extends Migration
 {
@@ -22,7 +21,7 @@ return new class extends Migration
             $table->string('recipient_link');
             $table->timestamp('expired_at')->nullable();
             $table->boolean('public');
-            $table->timestamp('deleted_at')->nullable();
+            $table->softDeletes()->nullable();
             $table->timestamps();
         });
     }

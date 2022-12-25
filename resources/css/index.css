@@ -1,4 +1,5 @@
-input[type="button"], button {
+input[type="button"], 
+button {
     padding: 5px 9px;
     background-color: var(--color-orange);
     border-radius: 3px;
@@ -8,11 +9,13 @@ input[type="button"], button {
     cursor: pointer;
     box-shadow: 1px 1px 12px black;
 }
-input[type="button"]:hover, button:hover {
+input[type="button"]:hover, 
+button:hover {
     color: white;
     cursor: pointer;
 }
-input[type="button"]:active, button:active {
+input[type="button"]:active, 
+button:active {
     background-color: black;
     color: white;
 }
@@ -21,11 +24,9 @@ input[type="button"]:active, button:active {
     margin-left: 43%;
     justify-content: space-between;
 }
-
 .bodyImg {
     width: 100%;
 }
-
 #logo {
     position: absolute;
     max-height: 90%;
@@ -33,11 +34,9 @@ input[type="button"]:active, button:active {
     left: -80px;
     top: 100px;
 }
-
 .buttonStartNow {
     margin-top: 11%;
 }
-
 .btnStartNow {
     width: 50%;
     height: 80px;
@@ -47,16 +46,13 @@ input[type="button"]:active, button:active {
     border-radius: 10px;
     border: 2px solid white;
 }
-
 .index-content {
     display: block;
     text-align: center;
 }
-
 .title {
     font-size: 37px;
 }
-
 .text {
     display: block;
     max-width: 800px;

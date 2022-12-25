@@ -19,14 +19,12 @@ class LinkController extends Controller
 
     public function findUrlInDatabase(string $url)
     {
-        $shortUrl = Link::where('shortened_link', '=', $url);
-        return empty($shortUrl);  
+        return Link::where('shortened_link', '=', $url)->first();
     }
 
     public function notFound()
     {
-        $errorMessage = 'Page not found.';
-        return view('notFound', ['errorMessage' => $errorMessage]);
+        return view('notFound', ['errorMessage' => 'Page not found.']);
     }
 
     public function redirectUrl(string $url)
@@ -40,10 +38,7 @@ class LinkController extends Controller
                         ->first('recipient_link');
 
 
-        if(empty($shortUrl)) {
-            $errorMessage = 'URL deleted or expired.';
-            return view('notFound', ['errorMessage' => $errorMessage]);
-        }
+        if(empty($shortUrl)) return view('notFound', ['errorMessage' => 'URL deleted or expired.']);
 
         return redirect($shortUrl->recipient_link);
     }
@@ -57,7 +52,6 @@ class LinkController extends Controller
             return 'http://' . $url; 
         }
     }
-
     
     public function store(Request $request)
     {
@@ -85,11 +79,9 @@ class LinkController extends Controller
         return redirect('user');
     }
 
-
     public function deleteUrl(Request $request)
     {
-        Link::where('id', '=', $request->link_id)
-        ->update(['deleted_at' => Carbon::now()]);
+        Link::where('id', '=', $request->link_id)->delete();
         return back();
     }
 }

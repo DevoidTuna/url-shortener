@@ -4,10 +4,6 @@
     <title>Login - Dev.ly</title>
 </head>
 @section('content')
-@auth
-    <h3>You are already logged in.</h3>
-@endauth
-@guest
 <div class="container-login">
     <h2>Login.</h2>
     <form action="{{ route('do-login') }}" method="POST">
@@ -16,8 +12,8 @@
         <input type="email" name="email" id="user-email" required placeholder="Your email"><br>
         <label for="user-password">Password</label><br>
         <input type="password" name="password" id="user-password" placeholder="Your password" required><br>
-        @if(isset($notRegistered))
-            <span class="errorMessage">Invalid email or password.</span>
+        @if($notRegistered)
+        <span class="errorMessage">Invalid email or password.</span>
         @endif
         <div class="bottom-buttons">
             <div class="button-remember-me">
@@ -28,7 +24,5 @@
         <button type="submit" name="btn-login" id="btn-login">LOGIN</button>
     </form>
 </div>
-@endguest
 @endsection
-
 @include('layout')

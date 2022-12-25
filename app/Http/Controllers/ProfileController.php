@@ -5,70 +5,70 @@ namespace App\Http\Controllers;
 use App\Models\Link;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $modalCreateUrl = 'modalCreateUrl';
         $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
-        $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
+        $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . "/r/";
         
-        $urls = Link::where('user_id', '=', auth()->id())
+        $urls = User::find(Auth::id())
+                    ->links()
                     ->where(
-                    function ($query) {
-                        $query->where('expired_at', '>=', Carbon::now())
+                        function ($query) {
+                            $query->where('expired_at', '>=', Carbon::now())
                                 ->orWhere('expired_at', '=', null);})
                     ->where('deleted_at', '=', null)
                     ->orderBy('id', 'desc')
-                    ->get();                    
+                    ->get();            
         
-        return view('user', ['modalCreateUrl' => $modalCreateUrl,
-                            'urls' => $urls,
-                            'site' => $site
-        ]);
+        return view(
+            'user', 
+            [
+                'modalCreateUrl' => $modalCreateUrl,
+                'urls' => $urls,
+                'site' => $site
+            ]
+        );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($users)
     {
         $userUrls = Link::where('user_id', '=', $users)
                         ->where(function ($query) {
                                 $query->where('expired_at', '>=', Carbon::now())
-                                      ->orWhere('expired_at', '=', null);
+                                    ->orWhere('expired_at', '=', null);
                                 })
                         ->where('deleted_at', '=', null)
                         ->where('public', '=', 1)
                         ->orderBy('id', 'desc')
                         ->get();
                         
-        $userName = User::where('id', '=', $users)->get('name');
+        $user = User::where('id', '=', $users)->first();
         
-        if(count($userName) == 0) {
-            $errorMessage = 'Deleted or non-existing user.';
-            return view('notFound', ['errorMessage' => $errorMessage]);
+        if(!$user) {
+            return view(
+                'notFound', 
+                [
+                    'errorMessage' => 'Deleted or non-existing user.'
+                ]
+            );
         }
 
-        $modalCreateUrl = 'modalCreateUrl';
         $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
-        $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
+        $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . "/r/";
         
-
-        return view('user', ['modalCreateUrl' => $modalCreateUrl,
-                            'userUrls' => $userUrls,
-                            'site' => $site,
-                            'userName' => $userName]);
-        
+        return view(
+            'user', 
+            [
+                'modalCreateUrl' => 'modalCreateUrl',
+                'userUrls' => $userUrls,
+                'site' => $site,
+                'user' => $user
+            ]
+        );
     }
 }

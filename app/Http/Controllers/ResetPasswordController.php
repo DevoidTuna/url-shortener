@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ResetPasswordNotification;
 use App\Models\User;
+use App\Models\Password_reset;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -18,18 +18,16 @@ class ResetPasswordController extends Controller
 
     public function getPasswordReset()
     {
-        $status = 0;
-        return view('password.email', ['status' => $status]);
+        return view('password.email', ['status' => 0]);
     }
 
     public function getPasswordNew($token)
     {
-        $tokenData = DB::table('password_resets')
-        ->where('token', $token)->first();
+        $tokenData = Password_reset::where('token', '=', $token)->first();
 
         if (empty($tokenData)) return view('password.email', ['status' => 'notToken']); ;
 
-        $user = User::where('email', $tokenData->email)->first();
+        $user = User::where('email', '=', $tokenData->email)->first();
 
         if (empty($user)) return view('password.email', ['status' => 'notFound']);
 
@@ -38,22 +36,20 @@ class ResetPasswordController extends Controller
 
     public function validatePasswordRequest(Request $request)
     {
-
         $user = User::where('email', '=', $request->email)->get();
 
-        if (count($user) < 1) { 
-            return view('password.email', ['status' => 'notFound']); 
-        } 
+        if (count($user) < 1) return view('password.email', ['status' => 'notFound']); 
 
-        DB::table('password_resets')->insert([ 
-                    'email' => $request-> email, 
-                    'token' => Str::random(60), 
-                    'created_at' => Carbon::now() 
-        ]);
+        $resetPassword = new Password_reset;
+        $resetPassword->email = $request->email;
+        $resetPassword->token = Str::random(60);
+        $resetPassword->timestamps = false;
+        $resetPassword->created_at = Carbon::now();
+        
+        $resetPassword->save();
 
-        $tokenData = DB::table('password_resets') 
-                        ->where('email', '=', $request->email)
-                        ->first('token'); 
+        $tokenData = Password_reset::where('email', '=', $request->email)
+                                    ->first('token'); 
 
         if ($this->sendResetEmail($request->email, $tokenData->token)) { 
             return view('password.email', ['status' => 'success']); 
@@ -64,7 +60,6 @@ class ResetPasswordController extends Controller
 
     public function sendResetEmail($email, $token)
     {
-        $user = User::where('email', '=', $email)->first('name', 'email');
         $protocol = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=="on") ? "https" : "http");
         $site = $protocol . '://'.$_SERVER['HTTP_HOST'] . '/';
         $link = $site . 'password/new/' . $token;
@@ -88,14 +83,12 @@ class ResetPasswordController extends Controller
 
             Auth::login($user);
 
-            DB::table('password_resets')
-            ->where('email', $user->email)
+            Password_reset::where('email', $user->email)
             ->delete();
 
             return redirect('user');
         } catch (Exception $e) {
             return view('password.reset', ['user' => $user, 'status' => -1]);
         }
-        
     }
 }
