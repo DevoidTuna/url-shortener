@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import { axios } from "@/services/axios";
 import { defineStore } from "pinia";
 
 import { User } from "../types/User";
@@ -9,42 +9,42 @@ export const useAuthStore = defineStore("auth", {
     return {
       accessToken: null,
       id: 0,
-      name: "",
+      nickname: "",
       email: "",
-      cellphone: "",
     } as User;
   },
   actions: {
     async checkUser(): Promise<void> {
-      await axios
-        .get("/user")
-        .then((response) => {
-          this.$state = {
-            id: response.data.data.id,
-            name: response.data.data.name,
-            email: response.data.data.email,
-            cellphone: response.data.data.cellphone,
-          };
-        })
-        .catch((error: AxiosError) => {
-          console.error("Error: ", error.response);
-          this.$state = {};
-          return error;
-        });
+      try {
+        const response = await axios.get("/api/user");
+        this.$state = {
+          id: response.data.data.id,
+          nickname: response.data.data.nickname,
+          email: response.data.data.email,
+        };
+      } catch (error) {
+        console.error("Error: ", error.response);
+        this.$state = {
+          accessToken: null,
+          id: 0,
+          nickname: "",
+          email: "",
+        };
+      }
     },
 
     async login(email: string, password: string): Promise<boolean> {
       try {
-        const result = await axios.post("/oauth/token", {
+        const response = await axios.post("/oauth/token", {
           username: email,
           password: password,
           grant_type: "password",
-          client_id: 2,
-          client_secret: "DvA8GBRuLslbbw6VIGLjWtP9i8lJQY4V5hyPZICk",
+          client_id: 1,
+          client_secret: "Y159UyuqPAxGIMBg4HS8IGOgeK3UBh8rtK9QOv1i",
           scopes: "",
         });
 
-        this.accessToken = result.data.access_token;
+        this.accessToken = response.data.access_token;
 
         await this.checkUser();
         return true;
@@ -59,24 +59,24 @@ export const useAuthStore = defineStore("auth", {
 
     async logout(): Promise<void> {
       try {
-        await axios.get("/logout");
+        await axios.get("/api/logout");
       } catch (e: any) {
         // console.log(e)
       } finally {
         this.accessToken = null;
         this.$state = {
+          accessToken: null,
           id: 0,
-          name: "",
+          nickname: "",
           email: "",
-          cellphone: "",
         };
       }
     },
 
     async register(form: { [key: string]: string }): Promise<boolean> {
       try {
-        await axios.post("/register", {
-          name: form.name,
+        await axios.post("/api/register", {
+          nickname: form.nickname,
           email: form.email,
           password: form.password,
           password_confirmation: form.password_confirmation,
@@ -94,7 +94,7 @@ export const useAuthStore = defineStore("auth", {
     async updateUser(form: object): Promise<boolean> {
       try {
         const response = await axios.post("/profile/edit", form);
-        this.$state.name = response.data.user.name;
+        this.$state.nickname = response.data.user.nickname;
         this.$state.email = response.data.user.email;
 
         return true;
@@ -108,7 +108,7 @@ export const useAuthStore = defineStore("auth", {
 
     async updatePassword(form: object): Promise<boolean> {
       try {
-        await axios.post("/password/update", form);
+        await axios.post("/api/password/update", form);
         return true;
       } catch (e: any) {
         if (e.response.data.message) {
@@ -120,7 +120,7 @@ export const useAuthStore = defineStore("auth", {
 
     async resetPassword(form: object): Promise<boolean> {
       try {
-        await axios.post("/password/reset", form);
+        await axios.post("/api/password/reset", form);
         return true;
       } catch (e: any) {
         if (e.response.data.message) {
@@ -132,7 +132,7 @@ export const useAuthStore = defineStore("auth", {
 
     async newPassword(form: object): Promise<boolean> {
       try {
-        await axios.post("/password/new", form);
+        await axios.post("/api/password/new", form);
         return true;
       } catch (e: any) {
         if (e.response.data.message) {

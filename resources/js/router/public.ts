@@ -5,22 +5,22 @@ const routes:Readonly<RouteRecordRaw[]> = [
   {
     path: '/',
     name: 'home',
-    component: () => import('./pages/Home.vue'),
+    component: () => import('../views/Home.vue'),
   },
-  {
-    path: '/user/:id',
-    name: 'user',
-    component: () => import('./pages/User.vue'),
-  },
+  // {
+  //   path: '/user/:id',
+  //   name: 'user',
+  //   component: () => import('../views/auth/User.vue'),
+  // },
   {
     path: '/not-found',
     name: 'notFound',
-    component: () => import('./pages/NotFound.vue'),
+    component: () => import('../views/NotFound.vue'),
   },
   {
     path: '/password/new/:token',
     name: 'newPassword',
-    component: () => import('./pages/NewPassword.vue'),
+    component: () => import('../views/auth/NewPassword.vue'),
   },
 ];
 

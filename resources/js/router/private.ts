@@ -4,12 +4,12 @@ const routes: Readonly<RouteRecordRaw[]> = [
   {
     path: '/profile',
     name: 'profile',
-    component: () => import('./pages/Profile.vue')
+    component: () => import('../views/auth/Profile.vue')
   },
   {
     path: '/profile/edit',
     name: 'editProfile',
-    component: () => import('./pages/EditProfile.vue')
+    component: () => import('../views/auth/EditProfile.vue')
   },
 ];
 

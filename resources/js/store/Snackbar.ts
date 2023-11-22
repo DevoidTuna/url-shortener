@@ -12,7 +12,7 @@ export const useSnackBar = defineStore('snackbar', {
   getters: {},
 
   actions: {
-    show(message: string, type: 'success' | 'info' | 'warning' | 'error', timeout: number = 4000) {
+    show(message: string, type: 'success' | 'info' | 'warning' | 'error', timeout: number = 3000) {
       this.visible = true;
       this.message = message;
       this.timeout = timeout;

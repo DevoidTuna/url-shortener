@@ -4,26 +4,28 @@ import privateRoutes from './private';
 import guestRoutes from './guest';
 import { useAuthStore } from "../store/Auth";
 
-const routes: Readonly<RouteRecordRaw[]> = publicRoutes.concat(privateRoutes).concat(guestRoutes);
-
+let routes: Readonly<RouteRecordRaw[]> = publicRoutes.concat(privateRoutes);
+routes = routes.concat(guestRoutes);
 const router = createRouter({
   history: createWebHistory('/'),
   routes,
 });
 
 router.beforeEach((to, _from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  const requiresNoAuth = to.matched.some(record => record.meta.requiresNoAuth);
+  const privateRoute = to.matched.some(record => record.meta.requiresAuth);
+  const guestRoute = to.matched.some(record => record.meta.requiresNoAuth);
   const authStore = useAuthStore();
 
-  if(requiresAuth && (!authStore.accessToken || authStore.accessToken === '')) {
-    next('/login');
-  } else {
-    if(requiresNoAuth && (!authStore.accessToken || authStore.accessToken === '')) {
-      next('/');
+  if (privateRoute) {
+    if (!authStore.accessToken || authStore.accessToken === '') {
+      next('/login');
     } else {
       next();
     }
+  } else if (guestRoute && !authStore.accessToken) {
+    next();
+  } else {
+    next();
   }
 });
 

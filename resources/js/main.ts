@@ -1,5 +1,5 @@
 import "./bootstrap";
-import "../sass/main.scss";
+import "../sass/app.scss";
 
 import { createApp } from "vue";
 import App from "./App.vue";
@@ -8,6 +8,7 @@ import vuetify from "./plugins/vuetify";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import { axios, VueAxios } from "./services/axios";
 import router from "./router/router";
+import { vMaska } from 'maska';
 import { createPinia } from "pinia";
 
 const pinia = createPinia();
@@ -20,4 +21,9 @@ const snackbar = useSnackBar();
 
 app.config.globalProperties.snackbar = snackbar;
 
-app.use(router).use(vuetify).use(VueAxios, axios).mount("#app");
+app
+  .use(router)
+  .use(vuetify)
+  .use(VueAxios, axios)
+  .directive("maska", vMaska)
+  .mount("#app");

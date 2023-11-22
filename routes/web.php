@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LinkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,4 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/{any}', 'app')->where('any', '.*');
+Route::get('/r/{url}', [LinkController::class, 'redirectUrl']);
+
+Route::get('/{vue_capture?}', function () {
+    return view('app');
+})->where('vue_capture', '[\/\w\.-]*');

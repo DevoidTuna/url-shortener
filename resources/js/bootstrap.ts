@@ -1,6 +1,7 @@
 declare global {
     interface Window {
         axios: typeof axios;
+        Laravel: {csrfToken: string}
     }
 }
 
@@ -11,6 +12,8 @@ declare global {
  */
 import axios from "axios";
 window.axios = axios;
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 // Set X-CSRF-TOKEN header with the CSRF token from the meta tag
 const csrfTokenMeta = document.head.querySelector('meta[name="csrf-token"]');
