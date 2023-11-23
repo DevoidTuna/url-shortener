@@ -1,12 +1,7 @@
 <template>
-  <t-text-input
-    v-model="modelValue"
-    @input="[$emit('update:modelValue', $event.target.value), checkUnique(), isValid()]"
-    type="text"
+  <t-text-input v-model="modelValue" @input="[$emit('update:modelValue', $event.target.value), isValid()]" type="text"
     :error-messages="submitted ? v$.modelValue.$silentErrors.map((e: any) => e.$message) : ''"
-    prepend-inner-icon="mdi-alpha-n-box-outline"
-    label="Nickname"
-  />
+    prepend-inner-icon="mdi-alpha-n-box-outline" label="Nickname" />
 </template>
 
 <script lang="ts">
@@ -15,6 +10,7 @@ import { defineComponent } from 'vue';
 
 import { useVuelidate } from '@vuelidate/core';
 import { required, helpers, minLength } from '@vuelidate/validators';
+import { axios } from '@/services/axios';
 
 export default defineComponent({
   name: 'TNicknameInput',
@@ -36,22 +32,25 @@ export default defineComponent({
       modelValue: {
         required: helpers.withMessage('Your Nickname is required', required),
         minLength: helpers.withMessage('Your Nickname must have more than 2 digits', minLength(3)),
-        async: helpers.withMessage('Nickname aready in use', helpers.withAsync(() => {return this.checkUnique})),
+        checkUnique(value: string) {
+          if (value === '' || value.length < 3) return new Promise((resolve) => resolve(true))
+
+          const result = new Promise((resolve, reject) => {
+            try {
+              axios.get(`/api/user/check/nickname/${value}`)
+              resolve(result.data.avaliable)
+            } catch (error) {
+              reject(false)
+            }
+          })
+        }
       },
     }
   },
   methods: {
     isValid() {
-      this.$emit('validation', !this.v$.modelValue.$invalid)
+      this.$emit('validation', !this.v$.modelValue.$pending)
     },
-    async checkUnique(): Promise<boolean> {
-      try {
-        const response = await this.axios.get(`/api/user/check/nickname/${this.modelValue}`)
-        return this.uniqueNickname = response.data.avaliable
-      } catch (error) {
-        return this.uniqueNickname = false
-      }
-    }
   }
 })
 </script>
