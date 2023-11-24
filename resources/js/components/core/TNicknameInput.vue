@@ -10,7 +10,6 @@ import { defineComponent } from 'vue';
 
 import { useVuelidate } from '@vuelidate/core';
 import { required, helpers, minLength } from '@vuelidate/validators';
-import { axios } from '@/services/axios';
 
 export default defineComponent({
   name: 'TNicknameInput',
@@ -32,25 +31,25 @@ export default defineComponent({
       modelValue: {
         required: helpers.withMessage('Your Nickname is required', required),
         minLength: helpers.withMessage('Your Nickname must have more than 2 digits', minLength(3)),
-        checkUnique(value: string) {
-          if (value === '' || value.length < 3) return new Promise((resolve) => resolve(true))
-
-          const result = new Promise((resolve, reject) => {
-            try {
-              axios.get(`/api/user/check/nickname/${value}`)
-              resolve(result.data.avaliable)
-            } catch (error) {
-              reject(false)
-            }
-          })
-        }
+        unique: helpers.withMessage('Nickname aready in use', () => !!this.uniqueNickname)
       },
     }
   },
   methods: {
-    isValid() {
-      this.$emit('validation', !this.v$.modelValue.$pending)
+    async isValid() {
+      this.uniqueNickname = await this.checkUnique(this.modelValue)
+      this.$emit('validation', (!this.v$.modelValue.$pending && this.uniqueNickname))
     },
+    async checkUnique(value: string) {
+      if (value.length > 2) {
+        try {
+          const result = await this.axios.get(`/api/user/check/nickname/${value}`)
+          return result.data.avaliable
+        } catch (error) {
+          return false
+        }
+      }
+    }
   }
 })
 </script>

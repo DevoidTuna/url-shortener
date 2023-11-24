@@ -1,32 +1,14 @@
 <template>
   <v-form @submit.prevent>
-    <t-nickname-input
-      :disabled="load"
-      v-model="form.nickname"
-      @validation="(n) => validation.nickname = n"
-    />
-    <t-email-input
-      :disabled="load"
-      :submitted="submit"
-      v-model="form.email"
-      @validation="(n) => validation.email = n"
-    />
-    <t-password-input
-      :disabled="load"
-      :submitted="submit"
-      v-model="form.password"
-      @validation="(n) => validation.password = n"
-    />
-    <t-text-input
-      :disabled="load"
-      label="Confirm your password"
-      v-model="form.password_confirmation"
-      prepend-inner-icon="mdi-key-variant"
-      :type="showPassword ? 'text' : 'password'"
-      :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-      @click:append-inner="showPassword = !showPassword"
-      :error-messages="submit ? v$.form.password_confirmation.$silentErrors.map((e: any) => e.$message) : ''"
-    />
+    <t-nickname-input :disabled="load" v-model="form.nickname" @validation="(n) => validation.nickname = n" ref="input" />
+    <t-email-input :disabled="load" :submitted="submit" v-model="form.email" @validation="(n) => validation.email = n"
+      ref="input" />
+    <t-password-input :disabled="load" :submitted="submit" v-model="form.password"
+      @validation="(n) => validation.password = n" ref="input" />
+    <t-text-input :disabled="load" label="Confirm your password" v-model="form.password_confirmation"
+      prepend-inner-icon="mdi-key-variant" :type="showPassword ? 'text' : 'password'"
+      :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'" @click:append-inner="showPassword = !showPassword"
+      :error-messages="submit ? v$.form.password_confirmation.$silentErrors.map((e: any) => e.$message) : ''" />
 
     <v-col class="d-flex px-0 justify-space-between align-center">
       <t-button color="secondary" size="small" variant="text" :to="{ name: 'login' }">Login</t-button>
@@ -90,7 +72,9 @@ export default defineComponent({
           await this.auth.register(this.form)
           this.$router.push({ name: 'profile' })
         } catch (e: any) {
-          this.snackbar.show("There was an error when trying to register", "error")
+          console.log(e)
+          this.snackbar.show(e, 'error')
+          // this.snackbar.show("There was an error when trying to register", "error")
         } finally {
           this.load = false
         }

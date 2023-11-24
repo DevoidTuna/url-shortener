@@ -22,14 +22,17 @@ export const useAuthStore = defineStore("auth", {
           nickname: response.data.data.nickname,
           email: response.data.data.email,
         };
-      } catch (error) {
-        console.error("Error: ", error.response);
+      } catch (e: any) {
+        if (e.data.data.response) {
+          throw e.data.data.response;
+        }
         this.$state = {
           accessToken: null,
           id: 0,
           nickname: "",
           email: "",
         };
+        throw "An error has occurred. Please try again later.";
       }
     },
 
@@ -53,7 +56,7 @@ export const useAuthStore = defineStore("auth", {
           throw e.response.data.message;
         }
         console.log(e);
-        throw "Ocorreu um erro. Por favor, tente novamente mais tarde.";
+        throw "An error has occurred. Please try again later.";
       }
     },
 
@@ -85,9 +88,9 @@ export const useAuthStore = defineStore("auth", {
         return true;
       } catch (e: any) {
         if (e.response.data.message) {
-          console.log(e.response.data.message);
+          throw e.response.data.message;
         }
-        throw "Ocorreu um erro. Por favor, tente novamente mais tarde.";
+        throw "An error has occurred. Please try again later.";
       }
     },
 
@@ -102,7 +105,7 @@ export const useAuthStore = defineStore("auth", {
         if (e.response.data.message) {
           // console.log(e.response.data.message)
         }
-        throw "Ocorreu um erro. Por favor, tente novamente mais tarde.";
+        throw "An error has occurred. Please try again later.";
       }
     },
 
@@ -114,7 +117,7 @@ export const useAuthStore = defineStore("auth", {
         if (e.response.data.message) {
           // console.log(e.response.data.message)
         }
-        throw "Ocorreu um erro. Por favor, tente novamente mais tarde.";
+        throw "An error has occurred. Please try again later.";
       }
     },
 
@@ -126,7 +129,7 @@ export const useAuthStore = defineStore("auth", {
         if (e.response.data.message) {
           // console.log(e.response.data.message)
         }
-        throw "Ocorreu um erro. Por favor, tente novamente mais tarde.";
+        throw "An error has occurred. Please try again later.";
       }
     },
 
@@ -138,7 +141,7 @@ export const useAuthStore = defineStore("auth", {
         if (e.response.data.message) {
           // console.log(e.response.data.message)
         }
-        throw "Ocorreu um erro. Por favor, tente novamente mais tarde.";
+        throw "An error has occurred. Please try again later.";
       }
     },
   },

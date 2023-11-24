@@ -15,9 +15,9 @@ class UserController extends Controller
   private UserService $service;
 
   public function __construct(UserService $service)
-    {
-        $this->service = $service;
-    }
+  {
+    $this->service = $service;
+  }
 
   public function store(Request $request)
   {
@@ -27,6 +27,10 @@ class UserController extends Controller
         'email'     => ['required', 'email', 'unique:users'],
         'password'  => ['required', 'min:6', 'confirmed']
       ]);
+
+      $unvaliableNickname = $this->service->checkUniqueNickname($request->nickname);
+
+      if ($unvaliableNickname) return response()->json(['message' => 'Nickname aready in use'], 405);
 
       $user = $this->service->store($request->all());
 
