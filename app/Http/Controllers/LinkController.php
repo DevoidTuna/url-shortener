@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Link;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class LinkController extends Controller
 {
@@ -36,7 +35,6 @@ class LinkController extends Controller
 
         if ($link) {
           return response()->json([
-            'status'  => false,
             'message'  => 'Personalized title in use.',
           ], 400);
         } else {
@@ -47,7 +45,6 @@ class LinkController extends Controller
       }
     } catch (\Throwable $e) {
       return response()->json([
-        'status'   => false,
         'message' => $e->getMessage()
       ], 500);
     }
@@ -80,59 +77,50 @@ class LinkController extends Controller
   public function store(Request $request)
   {
     try {
-      $credentials = Validator::make($request->all(), [
+      $request->validate([
         'user_id'          => ['required', 'integer'],
         'expired_at'      => ['required', 'boolean'],
         'public'          => ['required', 'boolean'],
         'recipient_link'  => ['required', 'string'],
       ]);
 
-      if (!$credentials) {
+      if (!$this->CheckShort($request->shortened_link)) {
         return response()->json([
-          'status'  => false,
-          'message'  => 'validation error'
-        ], 401);
-      } else {
-        if (!$this->CheckShort($request->shortened_link)) {
-          return response()->json([
-            'status'  => false,
-            'message'  => 'Url in use.'
-          ], 400);
-        }
-
-        $expired = '';
-        if ($request->expired_at < 0) {
-          $expired = null;
-        } else if (is_string($request->expired_at)) {
-          str_replace($request->expired_at, ':00', ':01');
-          $expired = new Carbon($request->expired_at);
-        } else {
-          $expired = Carbon::now()->addMinutes($request->expired_at);
-        }
-
-        $short = '';
-        if ($request->shortened_link) {
-          $short = preg_replace('/[^0-9a-zA-Z-]/', '', $request->shortened_link);
-          $short = str_replace(' ', '-', $request->shortened_link);
-        } else {
-          $short = $this->generateUrl();
-        }
-
-        Link::create([
-          'user_id'          => auth()->id(),
-          'shortened_link'  => $short,
-          'recipient_link'  => $this->checkLinkFormat($request->recipient_link),
-          'expired_at'      => $expired,
-          'public'          => $request->public
-        ]);
-
-        return response()->json([
-          'message'  => 'successfully shortened link',
-        ], 200);
+          'message'  => 'Url in use.'
+        ], 400);
       }
+
+      $expired = '';
+      if ($request->expired_at < 0) {
+        $expired = null;
+      } else if (is_string($request->expired_at)) {
+        str_replace($request->expired_at, ':00', ':01');
+        $expired = new Carbon($request->expired_at);
+      } else {
+        $expired = Carbon::now()->addMinutes($request->expired_at);
+      }
+
+      $short = '';
+      if ($request->shortened_link) {
+        $short = preg_replace('/[^0-9a-zA-Z-]/', '', $request->shortened_link);
+        $short = str_replace(' ', '-', $request->shortened_link);
+      } else {
+        $short = $this->generateUrl();
+      }
+
+      Link::create([
+        'user_id'          => auth()->id(),
+        'shortened_link'  => $short,
+        'recipient_link'  => $this->checkLinkFormat($request->recipient_link),
+        'expired_at'      => $expired,
+        'public'          => $request->public
+      ]);
+
+      return response()->json([
+        'message'  => 'successfully shortened link',
+      ], 200);
     } catch (\Throwable $e) {
       return response()->json([
-        'status'   => false,
         'message' => $e->getMessage()
       ], 500);
     }
@@ -141,41 +129,32 @@ class LinkController extends Controller
   public function edit(Request $request)
   {
     try {
-      $credentials = Validator::make($request->all(), [
+      $request->validate([
         'id'      => ['required', 'integer'],
         'user_id'  => ['required', 'integer'],
       ]);
 
-      if (!$credentials) {
-        return response()->json([
-          'status'  => false,
-          'message'  => 'validation error'
-        ], 401);
+      $url = Link::where([
+        ['id',      '=', $request->id],
+        ['user_id',  '=', $request->user_id],
+      ])->first();
+
+      if (empty($request->shortened_link)) {
+        $url->shortened_link = $this->generateUrl();
       } else {
-        $url = Link::where([
-          ['id',      '=', $request->id],
-          ['user_id',  '=', $request->user_id],
-        ])->first();
-
-        if (empty($request->shortened_link)) {
-          $url->shortened_link = $this->generateUrl();
-        } else {
-          $short = preg_replace('/[^0-9a-zA-Z-]/', '', $request->shortened_link);
-          $short = str_replace(' ', '-', $request->shortened_link);
-          $url->shortened_link = $short;
-        }
-
-        $url->save();
-
-        return response()->json([
-          'status'          => true,
-          'message'          => 'URL edited successfully.',
-          'shortened_link'  => $url->shortened_link,
-        ], 200);
+        $short = preg_replace('/[^0-9a-zA-Z-]/', '', $request->shortened_link);
+        $short = str_replace(' ', '-', $request->shortened_link);
+        $url->shortened_link = $short;
       }
+
+      $url->save();
+
+      return response()->json([
+        'message'          => 'URL edited successfully.',
+        'shortened_link'  => $url->shortened_link,
+      ], 200);
     } catch (\Throwable $th) {
       return response()->json([
-        'status'  => false,
         'message'  => $th->getMessage()
       ], 500);
     }
@@ -190,7 +169,6 @@ class LinkController extends Controller
       ], 200);
     } catch (\Throwable $th) {
       return response()->json([
-        'status'  => false,
         'message'  => $th->getMessage()
       ], 500);
     }

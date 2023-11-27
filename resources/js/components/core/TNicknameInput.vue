@@ -21,7 +21,7 @@ export default defineComponent({
   },
   data() {
     return {
-      submitted: true,
+      submitted: false,
       modelValue: "",
       uniqueNickname: true,
     }
@@ -43,6 +43,7 @@ export default defineComponent({
     async checkUnique(value: string) {
       if (value.length > 2) {
         try {
+          if (!this.submitted) this.submitted = true
           const result = await this.axios.get(`/api/user/check/nickname/${value}`)
           return result.data.avaliable
         } catch (error) {
