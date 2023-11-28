@@ -23,7 +23,7 @@ export default defineComponent({
     return {
       submitted: false,
       modelValue: "",
-      uniqueNickname: true,
+      unique: true,
     }
   },
   validations() {
@@ -31,14 +31,14 @@ export default defineComponent({
       modelValue: {
         required: helpers.withMessage('Your Nickname is required', required),
         minLength: helpers.withMessage('Your Nickname must have more than 2 digits', minLength(3)),
-        unique: helpers.withMessage('Nickname aready in use', () => !!this.uniqueNickname)
+        unique: helpers.withMessage('Nickname aready in use', () => !!this.unique)
       },
     }
   },
   methods: {
     async isValid() {
-      this.uniqueNickname = await this.checkUnique(this.modelValue)
-      this.$emit('validation', (!this.v$.modelValue.$pending && this.uniqueNickname))
+      this.unique = await this.checkUnique(this.modelValue)
+      this.$emit('validation', (!this.v$.modelValue.$pending && this.unique))
     },
     async checkUnique(value: string) {
       if (value.length > 2) {
