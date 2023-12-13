@@ -4,7 +4,7 @@ interface Link {
   shortened_link: string;
   recipient_link: string;
   expired_at: string | null;
-  public: boolean;
+  public: number;
   deleted_at: string | null;
   created_at: string;
   updated_at: string;

@@ -22,10 +22,10 @@ router.beforeEach((to, _from, next) => {
     } else {
       next();
     }
-  } else if (guestRoute && !authStore.accessToken) {
+  } else if ((guestRoute && !authStore.accessToken) || (!guestRoute && !privateRoute)) {
     next();
   } else {
-    next();
+    next('/profile');
   }
 });
 

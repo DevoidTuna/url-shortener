@@ -42,8 +42,8 @@ export const useAuthStore = defineStore("auth", {
           username: email,
           password: password,
           grant_type: "password",
-          client_id: 1,
-          client_secret: "Y159UyuqPAxGIMBg4HS8IGOgeK3UBh8rtK9QOv1i",
+          client_id: 2,
+          client_secret: "bLIHdI0DMQ0wlxeDfMNXLl5qjvkatmwiES8KJXgR",
           scopes: "",
         });
 

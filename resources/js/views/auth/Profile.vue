@@ -4,12 +4,13 @@
   </head>
   <div>
     <v-row class="d-flex justify-center">
-      <v-col class="pb-0" cols="12" md="6" lg="4">
+      <v-col class="pb-0" cols="12" md="6" lg="5">
         <v-scroll-y-transition group>
-          <h2 v-if="links" :key="0"><v-icon icon="mdi-link-variant"></v-icon>
+          <h2 v-if="urls" :key="0"><v-icon icon="mdi-link-variant"></v-icon>
             {{ auth.nickname + ' URLs' }}
           </h2>
-          <t-url-box :userProfile="true" :link="link" v-for="(link, index) in links" :key="index" />
+          <h2 v-else>{{ auth.nickname }} has no URLs avaliable</h2>
+          <t-url-box :userProfile="true" :url="url" v-for="url in urls" :key="url.id" />
         </v-scroll-y-transition>
       </v-col>
     </v-row>
@@ -21,8 +22,8 @@ import { defineComponent } from 'vue';
 
 import { useAuthStore } from '../../store/Auth';
 import { useLinkStore } from '../../store/Link';
-import TUrlBox from '@/components/core/TUrlBox.vue'
-import TUrlBoxOld from '@/components/core/TUrlBoxOld.vue'
+import TUrlBox from '@/components/core/TUrlBox.vue';
+import TUrlBoxOld from '@/components/core/TUrlBoxOld.vue';
 import { User } from '@/types/User';
 import { Link } from '@/types/Link';
 
@@ -40,7 +41,7 @@ export default defineComponent({
   },
   data() {
     return {
-      links: [] as Link[],
+      urls: [] as Link[],
       loadingUrls: true,
 
       user: {} as User,
@@ -54,7 +55,7 @@ export default defineComponent({
       this.loadingUrls = true
       try {
         const response = await this.link.index()
-        this.links = response
+        this.urls = response
       } catch (e) {
         // throw this.error = e
       } finally {
