@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import VariantProp from '../../types/vuetify/variant';
+import VariantProp from '@/types/vuetify/variant';
 
 export default defineComponent({
   props: {

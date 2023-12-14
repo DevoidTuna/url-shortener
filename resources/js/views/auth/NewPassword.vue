@@ -28,14 +28,14 @@
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
-import CardFormNewPassword from '../../components/cards/CardFormNewPassword.vue';
-import LoadingGrid from '../../components/loadings/LoadingGrid.vue';
+// import CardFormNewPassword from '@/components/cards/CardFormNewPassword.vue';
+// import LoadingGrid from '@/components/loadings/LoadingGrid.vue';
 
 export default defineComponent({
   name: "NewPassword",
   components: {
-    CardFormNewPassword,
-    LoadingGrid,
+    // CardFormNewPassword,
+    // LoadingGrid,
   },
 
   data() {

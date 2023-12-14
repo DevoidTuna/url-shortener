@@ -21,15 +21,15 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { useAuthStore } from "../../store/Auth";
+import { useAuthStore } from "@/store/Auth";
 
-import TEmailInput from '../core/TEmailInput.vue';
-import TPasswordInput from '../core/TPasswordInput.vue';
-import TButton from '../core/TButton.vue';
-import TNicknameInput from '../core/TNicknameInput.vue';
-import TTextInput from '../core/TTextInput.vue';
+import TEmailInput from '@/components/core/TEmailInput.vue';
+import TPasswordInput from '@/components/core/TPasswordInput.vue';
+import TButton from '@/components/core/TButton.vue';
+import TNicknameInput from '@/components/core/TNicknameInput.vue';
+import TTextInput from '@/components/core/TTextInput.vue';
 
-import { formValidation } from '../validators/validation';
+import { formValidation } from '@/components/validators/validation';
 import useVuelidate from '@vuelidate/core';
 import { sameAs, helpers } from '@vuelidate/validators';
 

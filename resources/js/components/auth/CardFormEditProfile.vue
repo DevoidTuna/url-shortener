@@ -6,7 +6,7 @@
         Editar minhas informações</v-card-title>
       <v-card-text>
 
-        <v-text-field class="mb-6" v-model="form.name" color="primary"
+        <v-text-field class="mb-6" v-model="form.nickname" color="primary"
           :error-messages="v$.form.name.$errors.map((e: any) => e.$message)" label="Nome" type="text" maxlength="50"
           required>
         </v-text-field>
@@ -38,7 +38,7 @@ import { defineComponent } from "vue";
 import { useVuelidate } from '@vuelidate/core'
 import { email, required, minLength, helpers } from '@vuelidate/validators'
 
-import { useAuthStore } from "../../store/Auth";
+import { useAuthStore } from "@/store/Auth";
 
 export default defineComponent({
   name: "CardFormEditProfile",
@@ -47,17 +47,17 @@ export default defineComponent({
     return { auth: useAuthStore(), v$: useVuelidate() }
   },
   computed: {
-    userName() {
-      return this.auth.user.name
+    nickname() {
+      return this.auth.nickname
     },
     userEmail() {
-      return this.auth.user.email
+      return this.auth.email
     }
   },
   data() {
     return {
       form: {
-        name: '',
+        nickname: '',
         email: '',
       },
       load: false,
@@ -66,8 +66,8 @@ export default defineComponent({
     }
   },
   watch: {
-    userName(newValue) {
-      this.form.name = newValue;
+    nickname(newValue) {
+      this.form.nickname = newValue;
     },
     userEmail(newValue) {
       this.form.email = newValue;
@@ -91,8 +91,8 @@ export default defineComponent({
     async handleUpdateUser() {
       if (await this.v$.v$alidate()) {
         if (
-          this.form.name === this.auth.user.name &&
-          this.form.email === this.auth.user.email
+          this.form.nickname === this.auth.nickname &&
+          this.form.email === this.auth.email
         ) {
           return this.success = true, this.message = 'Já atualizado!'
         } else {
@@ -100,8 +100,8 @@ export default defineComponent({
             this.message = ""
             this.load = true
             await this.auth.updateUser(this.form)
-            this.form.name = this.auth.user.name
-            this.form.email = this.auth.user.email
+            this.form.nickname = this.auth.nickname!
+            this.form.email = this.auth.email!
             this.message = "Dados atualizados!"
             this.success = true
           } catch (e: any) {

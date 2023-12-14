@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { useAuthStore } from "../../store/Auth";
+import { useAuthStore } from "@/store/Auth";
 import useVuelidate from '@vuelidate/core';
 import { email, required, helpers } from '@vuelidate/validators'
 import { defineComponent } from "vue";

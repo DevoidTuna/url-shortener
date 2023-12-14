@@ -37,7 +37,7 @@ import { defineComponent } from "vue";
 import useVuelidate from '@vuelidate/core';
 import { minLength, required, helpers, sameAs } from '@vuelidate/validators'
 
-import { useAuthStore } from "../../store/Auth";
+import { useAuthStore } from "@/store/Auth";
 
 export default defineComponent({
   name: 'CardFormNewPassword',

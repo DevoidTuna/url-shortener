@@ -24,10 +24,10 @@ import { defineComponent } from 'vue';
 
 import { useAuthStore } from "@/store/Auth";
 
-import TEmailInput from '../core/TEmailInput.vue';
-import TButton from '../core/TButton.vue';
+import TEmailInput from '@/components/core/TEmailInput.vue';
+import TButton from '@/components/core/TButton.vue';
 
-import { formValidation } from '../validators/validation';
+import { formValidation } from '@/components/validators/validation';
 
 export default defineComponent({
   name: 'TResetPasswordForm',

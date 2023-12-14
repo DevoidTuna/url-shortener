@@ -30,7 +30,7 @@ export default defineComponent({
     loader: {
       type: Boolean,
       default: false,
-    }
+    },
   }
 })
 </script>

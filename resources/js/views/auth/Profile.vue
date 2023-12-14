@@ -4,12 +4,14 @@
   </head>
   <div>
     <v-row class="d-flex justify-center">
-      <v-col class="pb-0" cols="12" md="6" lg="5">
+      <v-col class="mb-5" cols="12" md="6" lg="5">
         <v-scroll-y-transition group>
-          <h2 v-if="urls" :key="0"><v-icon icon="mdi-link-variant"></v-icon>
-            {{ auth.nickname + ' URLs' }}
-          </h2>
-          <h2 v-else>{{ auth.nickname }} has no URLs avaliable</h2>
+          <div class="mb-3 mt-1">
+            <h2 v-if="urls" :key="0"><v-icon icon="mdi-link-variant"></v-icon>
+              {{ auth.nickname + ' URLs' }}
+            </h2>
+            <h2 v-else>{{ auth.nickname }} has no URLs avaliable</h2>
+          </div>
           <t-url-box :userProfile="true" :url="url" v-for="url in urls" :key="url.id" />
         </v-scroll-y-transition>
       </v-col>
@@ -20,8 +22,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { useAuthStore } from '../../store/Auth';
-import { useLinkStore } from '../../store/Link';
+import { useAuthStore } from '@/store/Auth';
+import { useLinkStore } from '@/store/Link';
 import TUrlBox from '@/components/core/TUrlBox.vue';
 import TUrlBoxOld from '@/components/core/TUrlBoxOld.vue';
 import { User } from '@/types/User';

@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useSnackBar } from '../../store/Snackbar';
+import { useSnackBar } from '@/store/Snackbar';
 
 export default defineComponent({
   data() {

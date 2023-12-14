@@ -86,7 +86,7 @@ export default defineComponent({
 
 			visibility: true,
 			copyText: 'COPY',
-			site: "",
+			site: "dev.ly",
 			editUrl: false,
 			newUrlEdited: {
 				id: this.$props.url.id,
@@ -100,7 +100,7 @@ export default defineComponent({
 		}
 	},
 	created() {
-		this.site = window.location.origin.split('://')[1]
+		// this.site = window.location.origin.split('://')[1]
 	},
 	methods: {
 		copyUrl() {

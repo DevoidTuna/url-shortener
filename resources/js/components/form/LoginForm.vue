@@ -33,12 +33,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import TEmailInput from '../core/TEmailInput.vue';
-import TPasswordInput from '../core/TPasswordInput.vue';
-import TButton from '../core/TButton.vue';
+import TEmailInput from '@/components/core/TEmailInput.vue';
+import TPasswordInput from '@/components/core/TPasswordInput.vue';
+import TButton from '@/components/core/TButton.vue';
 
-import { useAuthStore } from "../../store/Auth";
-import { formValidation } from '../validators/validation';
+import { useAuthStore } from "@/store/Auth";
+import { formValidation } from '@/components/validators/validation';
 
 export default defineComponent({
   name: 'LoginForm',
