@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Link;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LinkController extends Controller
 {
   private function generateUrl()
   {
-    $url = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"), 0, 8);
+    $url = Str::random(8);
     while ($this->CheckShort($url)) {
-      $url = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"), 0, 8);
+      $url = Str::random(8);
     }
     return $url;
   }
@@ -50,7 +51,7 @@ class LinkController extends Controller
     }
   }
 
-  static function redirectUrl(string $url)
+  public function redirectUrl(string $url)
   {
     $shortUrl = Link::where('shortened_link', '=', $url)
       ->where(function ($query) {
@@ -91,13 +92,14 @@ class LinkController extends Controller
       }
 
       $expired = '';
+      $expiration = $request->expired_at;
       if ($request->expired_at < 0) {
         $expired = null;
-      } else if (is_string($request->expired_at)) {
-        str_replace($request->expired_at, ':00', ':01');
-        $expired = new Carbon($request->expired_at);
+      } else if (is_string($expiration)) {
+        str_replace($expiration, ':00', ':01');
+        $expired = new Carbon($expiration);
       } else {
-        $expired = Carbon::now()->addMinutes($request->expired_at);
+        $expired = Carbon::now()->addMinutes($expiration);
       }
 
       $short = '';

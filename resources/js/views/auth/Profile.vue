@@ -6,12 +6,11 @@
     <v-row class="d-flex justify-center">
       <v-col class="mb-5" cols="12" md="6" lg="5">
         <v-scroll-y-transition group>
-          <div class="mb-3 mt-1">
-            <h2 v-if="urls" :key="0"><v-icon icon="mdi-link-variant"></v-icon>
-              {{ auth.nickname + ' URLs' }}
+          <t-create-url :key="0" class="mt-2 mb-5" v-show="auth.id" />
+            <h2 :key="1" class="mb-2">
+              <v-icon icon="mdi-link-variant" />
+              {{ auth.nickname + (urls ? ' URLs' : 'has no URLs avaliable') }}
             </h2>
-            <h2 v-else>{{ auth.nickname }} has no URLs avaliable</h2>
-          </div>
           <t-url-box :userProfile="true" :url="url" v-for="url in urls" :key="url.id" />
         </v-scroll-y-transition>
       </v-col>
@@ -27,14 +26,16 @@ import { useLinkStore } from '@/store/Link';
 import TUrlBox from '@/components/core/TUrlBox.vue';
 import TUrlBoxOld from '@/components/core/TUrlBoxOld.vue';
 import { User } from '@/types/User';
-import { Link } from '@/types/Link';
+import { Url } from '@/types/Url';
+import TCreateUrl from '@/components/core/TCreateUrl.vue';
 
 export default defineComponent({
   name: 'Profile',
   components: {
     TUrlBox,
     TUrlBoxOld,
-  },
+    TCreateUrl
+},
   setup() {
     return {
       auth: useAuthStore(),
@@ -43,7 +44,7 @@ export default defineComponent({
   },
   data() {
     return {
-      urls: [] as Link[],
+      urls: [] as Url[],
       loadingUrls: true,
 
       user: {} as User,
