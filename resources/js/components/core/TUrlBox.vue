@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-slide-y-transition>
-      <v-row v-show="visibility">
+      <v-row v-show="visibility" class="border class-test w-100">
         <v-col class="d-flex align-center border border-primary">
           <v-fade-transition hide-on-leave>
             <v-btn
@@ -63,7 +63,7 @@
                 active
                 @blur="handleCheckCustomUrl"
                 :error-messages="newUrlEdited.error ? newUrlEdited.message : ''"
-                maxlength="50"
+                :maxlength="50"
                 prefix="dev.ly/"
                 v-model="newUrlEdited.shortened_link"
                 persistent-hint
@@ -90,7 +90,7 @@
                 color="primary"
               ></v-icon
             ></v-btn>
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-btn
               :disabled="newUrlEdited.load"
               @click="editUrl ? (editUrl = false) : handleDestroy"
@@ -182,7 +182,6 @@ export default defineComponent({
         this.visibility = false;
         this.$emit("delete", 1);
       } catch (e: any) {
-        console.log(e);
         if (e.response.data.message) {
           throw e.response.data.message;
         } else {
@@ -236,3 +235,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped lang="scss">
+.class-test {
+
+}
+</style>
